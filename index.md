@@ -11,5 +11,5 @@ Title: Welcome to Index Page
 	  {% endfor %}
 </ul>
 ```markdown
-hello, and this is my index.
+_hello, and this is my index._
 ```
