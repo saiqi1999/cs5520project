@@ -1,6 +1,6 @@
 ---
-layout:default
-Title:Welcome to Index Page
+layout: default
+Title: Welcome to Index Page
 ---
 ## Posts
 
