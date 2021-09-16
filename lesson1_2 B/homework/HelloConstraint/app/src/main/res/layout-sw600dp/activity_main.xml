@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/button_toast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@color/design_default_color_primary"
+
+        android:onClick="showToast"
+        android:text="@string/button_label_toast"
+        android:textColor="@android:color/white"
+        android:textSize="70sp"
+        app:backgroundTint="@android:color/transparent"
+        app:backgroundTintMode="add" />
+
+    <Button
+        android:id="@+id/button_zero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_toast"
+        android:layout_marginTop="130dp"
+        android:background="#666666"
+        android:onClick="toZero"
+        android:text="@string/button_label_zero"
+        android:textColor="@android:color/white"
+        android:textSize="70sp"
+        app:backgroundTint="@android:color/transparent"
+        app:backgroundTintMode="add" />
+
+
+    <TextView
+        android:id="@+id/show_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+
+
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="8dp"
+
+        android:layout_toEndOf="@+id/button_toast"
+        android:layout_toRightOf="@+id/button_toast"
+
+        android:background="#FFFF00"
+        android:gravity="center_vertical"
+        android:text="@string/count_initial_value"
+        android:textAlignment="center"
+        android:textColor="@color/design_default_color_primary"
+        android:textSize="600sp"
+        android:textStyle="bold"
+        tools:ignore="RtlCompat" />
+
+    <Button
+        android:id="@+id/button_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_zero"
+
+
+        android:layout_marginTop="130dp"
+        android:background="@color/purple_200"
+
+        android:onClick="countUp"
+        android:text="@string/button_label_count"
+        android:textColor="#311B92"
+        android:textSize="70sp"
+        app:backgroundTint="@android:color/transparent"
+        app:backgroundTintMode="add" />
+</RelativeLayout>
