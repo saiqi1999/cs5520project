@@ -3,9 +3,9 @@ layout: default
 title: Assignment 2
 date: 2021-09-21
 ---
-2-1: (Lesson 2-1)[https://github.com/saiqi1999/cs5520project/tree/main/lesson2_1]
+2-1: [Lesson 2-1](https://github.com/saiqi1999/cs5520project/tree/main/lesson2_1)
 
-2-2: (Lesson 2-2)[https://github.com/saiqi1999/cs5520project/tree/main/lesson2_2]
+2-2: [Lesson 2-2](https://github.com/saiqi1999/cs5520project/tree/main/lesson2_2)
 
 ***homework problems***
 
