@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Assignment 2
-date: 09-21-2021
+date: 2021-09-21
 ---
 2-1: https://github.com/saiqi1999/cs5520project/tree/main/lesson2_1
 
