@@ -6,7 +6,9 @@ date: 09-21-2021
 2-1: https://github.com/saiqi1999/cs5520project/tree/main/lesson2_1
 
 2-2: https://github.com/saiqi1999/cs5520project/tree/main/lesson2_2
+
 ***homework problems***
+
 Question 1
 What changes are made when you add a second Activity to your app by choosing File > New > Activity and an Activity template? Choose one:
 
