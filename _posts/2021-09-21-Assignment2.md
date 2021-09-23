@@ -3,9 +3,13 @@ layout: default
 title: Assignment 2
 date: 2021-09-21
 ---
+***link to code***
+
 2-1: [Lesson 2-1](https://github.com/saiqi1999/cs5520project/tree/main/lesson2_1)
 
 2-2: [Lesson 2-2](https://github.com/saiqi1999/cs5520project/tree/main/lesson2_2)
+
+2-3: [lesson 2-3](https://github.com/saiqi1999/cs5520project/tree/main/lesson2_3)
 
 ***homework problems***
 
@@ -53,3 +57,18 @@ Question 4
 Which Activity lifecycle methods are best to use for saving data before the Activity is finished or destroyed? Choose one:
 
 onPause() or onStop()
+
+Question 1
+Which constructor method do you use to create an implicit Intent to launch a camera app?
+
+new Intent(String action)
+
+Question 2
+When you create an implicit Intent object, which of the following is true?
+
+All of the above.
+
+Question 3
+Which Intent action do you use to take a picture with a camera app?
+
+Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
