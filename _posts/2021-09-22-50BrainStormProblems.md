@@ -24,3 +24,37 @@ date: 2021-09-22
 10 There are some good time to go to specific park or moutain/lake but people may not know. Build an app which include the knowledge they need to travel to those parks and natural scenery, take the location as input because people won't want to travel too far. Could provide some extra information for photographers, hunters, or help to gather people for sightseeing by internet.
 
 got 10 junk, my mind is empty now -_-
+
+11 News need to be spread out. We could build an application to distribute news, goverment news, business news, and so on.
+
+12 Online shopping is much more convinent than shopping in place. Application can be built to shop online.
+
+13 Not only online shopping, but also booking tickets and hotels, pharmacy needs, foods. An application could do all those staff while only one distribute system is needed.
+
+14 When searching for restaurants to eat, it's good to see the ratings of the restaurant, or even order online. So you can just sit down and eat when you're there, without wating for food to be cooked.
+
+15 An browser that provide more powerful support.
+
+16 There are some kind of files, include docx, pdf, ppt, which need specific Software to open and edit. Build a APP that provide fundamental approch to these files, including viewing, editing and saving.
+
+17 One have to go to a branch for checking the balance on his card, it's not necessary with mobile application which can update the infomation about the account 
+
+18 Printers today are advanced that they could do automatic printing, therefore we could build an application which can control personal printers. If we provide public printers, we could also provide such app that made those printers avaliable to everyone.
+
+19 When you want to listen some radio shows confilt in time, an app that act as both radio and recorder could help, which record radio at a pre-set time.
+
+20 An app that could manage theme, wallpaper, music on your phone, or maybe conbine those together. Could change every day base on Machine learning?
+
+21 An app that perform a set of actions that is pre-set by the user, such as open that app at a certain time, send message or call at a certain time every day, or play game automatically?
+
+22 Buying subway or lightway tickets could be annoying, which could be solved by an application, which give out encrypted QR code as tickets.
+
+23 It may be a hard thing for those who don't have a car to move furniture, books or even pets from one place to another. An application can help by making some user register as drivers and other register as customers.
+
+24 It's kind of hard to manage small amount of expenses, such as daily expenses in different banks. An application could help by storing money for the user, which act like a bank but could be a finance or investment company behind.
+
+25 Sharing videos in a ad-free way, YouTube sucks.
+
+26 Sometimes we don't have time to get pdf version of documents, but we can do this another way, build an appllication that take photo as an input, modify the photo and make it distinct and sharper, export as PDF file.
+
+
