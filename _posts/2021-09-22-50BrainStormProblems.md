@@ -57,4 +57,53 @@ got 10 junk, my mind is empty now -_-
 
 26 Sometimes we don't have time to get pdf version of documents, but we can do this another way, build an appllication that take photo as an input, modify the photo and make it distinct and sharper, export as PDF file.
 
+27 Build up an application to help people walk every day, to keep fit.
+
+28 Build up an application to navigate people, including walking and public transportation.
+
+29 Build up an application to help with taxi drivers, or maybe Private car drivers who wants to carry passengers and make money.
+
+30 There are many software in your phone that need to be managed, build up an app which can help update those applications, order those applications, or maybe suggest to delete some of the applications to save performance.
+
+31 Build up a game app which contains a lot of small games, which may be continously updated to make the user feel interesting.
+
+32 Some companies may have been in a lawsuit or they are doing bad to employees, build up an applications which people can check those companies before they go to work there.
+
+33 Build up an application which help with car owners and people who wants a car to purchase, sell or get informations about car.
+
+34 Build up an application in which people share their stories with others nearby.
+
+35 It's complicated to manage a trip, build up an application in which you can book tickets for travelling, sightseeing and grouping others.
+
+36 Build up an application for employers and employees to find each other, or hire.
+
+37 Build up an application to help people get their home furnished.
+
+38 Build up an application for purchasing and dropping stockings.
+
+39 An dictionary application, which should be easy to use.
+
+40 An application to save notes, or diary.
+
+41 An application to share short videos, based on machine learning algorithms.
+
+42 An application to track your mobile, or other devices.
+
+43 An application for renting houses.
+
+44 An application to help share knowledge like wiki.
+
+45 An application to help with learning another language.
+
+46 An application to help collect music, listening to music.
+
+47 An application for people to chat online, text, sound and video are supported.
+
+48 An application to help with exams, including on school exams and professional exams.
+
+49 An application for gathering people with same hobbies.
+
+50 An application for learning and reading.
+
+
 
