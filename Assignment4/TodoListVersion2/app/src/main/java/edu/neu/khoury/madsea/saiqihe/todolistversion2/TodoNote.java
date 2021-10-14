@@ -1,0 +1,73 @@
+package edu.neu.khoury.madsea.saiqihe.todolistversion2;
+
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+import java.util.Objects;
+
+@Entity(tableName = "todo_note_table")
+public class TodoNote {
+
+    @ColumnInfo(name = "note_id")
+    @PrimaryKey(autoGenerate = true)
+    private int noteId;
+
+    public int getNoteId() {
+        return noteId;
+    }
+
+    public void setNoteId(int noteId) {
+        this.noteId = noteId;
+    }
+
+    @NonNull
+    @ColumnInfo(name = "note_title")
+    private String title;
+
+    @ColumnInfo(name = "note_detail")
+    private String detail;
+    /*public void setId(int id) {
+        this.id = id;
+    }*/
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TodoNote todoNote = (TodoNote) o;
+        return Objects.equals(title, todoNote.title) && Objects.equals(detail, todoNote.detail);
+    }
+
+    public TodoNote(int noteId, @NonNull String title, String detail) {
+        this.noteId = noteId;
+        this.title = title;
+        this.detail = detail;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, detail);
+    }
+
+    /*public int getId() {
+        return id;
+    }*/
+}
