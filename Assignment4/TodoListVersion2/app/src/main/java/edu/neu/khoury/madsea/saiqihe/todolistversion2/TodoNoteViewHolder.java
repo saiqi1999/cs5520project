@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class TodoNoteViewHolder extends RecyclerView.ViewHolder {
     private TextView title;
     private TextView detail;
-    TodoModelView mv;
+    private TextView idv;
     public TodoNoteViewHolder(@NonNull View itemView) {
         super(itemView);
         //mv = new ViewModelProvider((ViewModelStoreOwner) this).get(TodoModelView.class);
@@ -23,8 +23,10 @@ public class TodoNoteViewHolder extends RecyclerView.ViewHolder {
         });
         title = itemView.findViewById(R.id.recycle_title);
         detail = itemView.findViewById(R.id.recycle_detail);
+        idv = itemView.findViewById(R.id.hidden_id);
     }
-    public void bind(String titles, String details){
+    public void bind(String id, String titles, String details){
+        idv.setText(id);
         title.setText(titles);
         detail.setText(details);
     }

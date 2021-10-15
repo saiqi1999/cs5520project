@@ -1,21 +1,27 @@
 package edu.neu.khoury.madsea.saiqihe.todolistversion2;
 
 
+import androidx.annotation.StringDef;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 @Dao
 public interface TodoNoteDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert
     public void insert(TodoNote note);
+    @Query("insert into todo_note_table values(null,:title,:detail)")
+    public void insert2(String title, String detail);
     @Query("SELECT * FROM todo_note_table")
     public LiveData<List<TodoNote>> selectAll();
     @Query("DELETE FROM todo_note_table")
     public void deleteAll();
+    @Update
+    void update(TodoNote note);
     @Query("UPDATE todo_note_table set note_title = :title and note_detail = :detail where note_id = :id")
-    void update(String title, String detail, int id);
+    void update2(String title, String detail, int id);
 }

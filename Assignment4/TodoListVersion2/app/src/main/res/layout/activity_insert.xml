@@ -7,14 +7,13 @@
     tools:context=".InsertActivity">
 
     <TextView
-        android:id="@+id/text_id"
+        android:id="@+id/text_id_hidden"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textColor="#555555"
-        android:hint="#id"/>
+        android:textColor="#555555" />
     <EditText
         android:id="@+id/text_title"
         android:layout_width="wrap_content"
@@ -31,7 +30,7 @@
         android:id="@+id/text_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:text="detail"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

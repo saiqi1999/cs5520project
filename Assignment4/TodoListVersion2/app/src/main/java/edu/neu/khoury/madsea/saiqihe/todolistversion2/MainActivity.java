@@ -44,14 +44,15 @@ public class MainActivity extends AppCompatActivity implements Someinterface{
         super.onActivityResult(requestCode, resultCode, data);
         assert data != null;
         if(requestCode==1){
-            modelView.insert(new TodoNote(Integer.parseInt(data.getStringExtra("id")),
+            modelView.insert(new TodoNote(
                     data.getStringExtra("title"),
                     data.getStringExtra("detail")));
         }
         else{
-            modelView.update(new TodoNote(Integer.parseInt(data.getStringExtra("id")),
+            modelView.update(new TodoNote(data.getIntExtra("id",0),
                     data.getStringExtra("title"),
                     data.getStringExtra("detail")));
+
         }
     }
 
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements Someinterface{
     @Override
     public void update(TodoNote note) {
         Intent intent = new Intent(MainActivity.this,InsertActivity.class);
-        intent.putExtra("id",note.getNoteId());
+        intent.putExtra("id",note.getNoteId().toString());
         intent.putExtra("title",note.getTitle());
         intent.putExtra("detail",note.getDetail());
         startActivityForResult(intent,2);

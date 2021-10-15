@@ -25,7 +25,6 @@ public class TodoNoteAdapter extends ListAdapter<TodoNote,TodoNoteViewHolder> {
     }
 
 
-    @NonNull
     @Override
     public TodoNoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         TodoNoteViewHolder holder =  TodoNoteViewHolder.create(parent);
@@ -46,7 +45,7 @@ public class TodoNoteAdapter extends ListAdapter<TodoNote,TodoNoteViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull TodoNoteViewHolder holder, int position) {
         TodoNote note = getItem(position);
-        holder.bind(note.getTitle(),note.getDetail());
+        holder.bind(note.getNoteId()+"",note.getTitle(),note.getDetail());
     }
 
     static class NoteDiff extends DiffUtil.ItemCallback<TodoNote>{

@@ -1,11 +1,14 @@
 package edu.neu.khoury.madsea.saiqihe.todolistversion2;
 
+import android.os.Parcel;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.security.PublicKey;
 import java.util.Objects;
 
 @Entity(tableName = "todo_note_table")
@@ -13,15 +16,7 @@ public class TodoNote {
 
     @ColumnInfo(name = "note_id")
     @PrimaryKey(autoGenerate = true)
-    private int noteId;
-
-    public int getNoteId() {
-        return noteId;
-    }
-
-    public void setNoteId(int noteId) {
-        this.noteId = noteId;
-    }
+    private Integer noteId;
 
     @NonNull
     @ColumnInfo(name = "note_title")
@@ -29,9 +24,7 @@ public class TodoNote {
 
     @ColumnInfo(name = "note_detail")
     private String detail;
-    /*public void setId(int id) {
-        this.id = id;
-    }*/
+
     public String getTitle() {
         return title;
     }
@@ -48,6 +41,29 @@ public class TodoNote {
         this.detail = detail;
     }
 
+    public Integer getNoteId() {
+        return noteId;
+    }
+
+    public void setNoteId(int noteId) {
+        this.noteId = noteId;
+    }
+
+    public TodoNote(@NonNull String title, String detail) {
+        this.title = title;
+        this.detail = detail;
+    }
+    @Ignore
+    public TodoNote(Integer noteId, @NonNull String title, String detail) {
+        this.noteId = noteId;
+        this.title = title;
+        this.detail = detail;
+    }
+    public TodoNote(Parcel in){
+        noteId = in.readInt();
+        title = in.readString();
+        detail = in.readString();
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -55,19 +71,9 @@ public class TodoNote {
         TodoNote todoNote = (TodoNote) o;
         return Objects.equals(title, todoNote.title) && Objects.equals(detail, todoNote.detail);
     }
-
-    public TodoNote(int noteId, @NonNull String title, String detail) {
-        this.noteId = noteId;
-        this.title = title;
-        this.detail = detail;
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(title, detail);
     }
 
-    /*public int getId() {
-        return id;
-    }*/
 }

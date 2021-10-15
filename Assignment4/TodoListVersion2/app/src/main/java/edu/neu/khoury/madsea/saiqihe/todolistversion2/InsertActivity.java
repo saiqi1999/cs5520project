@@ -23,7 +23,7 @@ public class InsertActivity extends AppCompatActivity {
         button = findViewById(R.id.insert_submit_button);
         title = findViewById(R.id.text_title);
         detail = findViewById(R.id.text_detail);
-        idv = findViewById(R.id.text_id);
+        idv = findViewById(R.id.text_id_hidden);
         Intent inputIntent = getIntent();
         if(inputIntent.getStringExtra("title")!=null){
             title.setText(inputIntent.getStringExtra("title"));
@@ -32,7 +32,7 @@ public class InsertActivity extends AppCompatActivity {
         }
         button.setOnClickListener(view -> {
             Intent intent = new Intent();
-            intent.putExtra("id",Integer.parseInt(idv.getText().toString()));
+            if(idv.getText()!=null&&idv.getText()!="")intent.putExtra("id",Integer.parseInt(idv.getText().toString()));
             intent.putExtra("title",title.getText().toString());
             intent.putExtra("detail",detail.getText().toString());
             setResult(RESULT_OK,intent);

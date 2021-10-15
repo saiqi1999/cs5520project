@@ -17,6 +17,9 @@ public class TodoRepo {
         lists = dao.selectAll();
     }
     public void insert(TodoNote t){
+        /*if(t.getNoteId()==null){
+            t.setNoteId(t.hashCode());
+        }*/
         TodoNoteDatabase.executor.execute(()->{
             dao.insert(t);
         });
@@ -32,7 +35,7 @@ public class TodoRepo {
 
     public void update(TodoNote note) {
         TodoNoteDatabase.executor.execute(()->{
-            dao.update(note.getTitle(),note.getDetail(),note.getNoteId());
+            dao.update(note);
         });
     }
 }
