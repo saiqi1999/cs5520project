@@ -33,11 +33,14 @@ public class TodoNoteAdapter extends ListAdapter<TodoNote,TodoNoteViewHolder> {
             TextView titleView = holder.itemView.findViewById(R.id.recycle_title);
             TextView detailView = holder.itemView.findViewById(R.id.recycle_detail);
             TextView idView = holder.itemView.findViewById(R.id.hidden_id);
-            view.setBackgroundColor(Color.BLUE);
             someinterface.update(new TodoNote(Integer.parseInt(idView.getText().toString()),
                     titleView.getText().toString(),
                     detailView.getText().toString()));
             //Intent intent = new Intent(parent.getContext(),InsertActivity.class);
+        });
+        holder.itemView.findViewById(R.id.recycle_detail).setOnClickListener(view -> {
+            TextView titleV = holder.itemView.findViewById(R.id.recycle_title);
+            titleV.setBackgroundColor(Color.BLUE);
         });
         return holder;
     }

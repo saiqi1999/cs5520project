@@ -37,6 +37,12 @@ public class MainActivity extends AppCompatActivity implements Someinterface{
             Intent intent = new Intent(MainActivity.this,InsertActivity.class);
             startActivityForResult(intent,1);
         });
+
+        //del
+        FloatingActionButton delButton = findViewById(R.id.float_del_button);
+        delButton.setOnClickListener(view -> {
+            modelView.delete();
+        });
     }
 
     @Override

@@ -28,4 +28,16 @@
         android:src="@drawable/ic_baseline_add_circle_outline_24"
         />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/float_del_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="#60E64141"
+        android:contentDescription="@string/del"
+        android:src="@drawable/ic_baseline_clear_24"
+        app:backgroundTint="#D84242"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
