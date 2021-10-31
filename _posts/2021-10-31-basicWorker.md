@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Basic timer worker added
-update: 2021-10-31
+title: Assignment5 : Basic timer worker added
+Date: 2021-10-31
 ---
 Add basic timer function to this app, it can also create a notification now
 
