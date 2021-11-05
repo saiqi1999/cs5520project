@@ -7,11 +7,13 @@ Brief introduction: \
 this is an Android app that allows you to create, edit and delete note in it\
 the notes are stored in room database and you can get it the next time you opend this app\
 add button is a green button in right-down corner, delete button is a red button in right-up corner, and click note title to edit specific note\
-click note detail to make the note blue\
+click note detail to make the note blue
 
 Patch note: \
 added basic timer function to this app, it can also create a notification now\
 you can select time using "pick time" button when you are creating or updating notes\
+while picking time the picked time will be shown in button\
+notify could be replaced by update, the old one won't create notifications in this case
 
 link to Code: \
 [https://github.com/saiqi1999/cs5520project/tree/main/Assignment5](https://github.com/saiqi1999/cs5520project/tree/main/Assignment5)\
