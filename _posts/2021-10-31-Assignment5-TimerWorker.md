@@ -7,4 +7,4 @@ Add basic timer function to this app, it can also create a notification now
 
 link to Code:
 [https://github.com/saiqi1999/cs5520project/tree/main/Assignment5](https://github.com/saiqi1999/cs5520project/tree/main/Assignment5)
-<img src = https://raw.githubusercontent.com/saiqi1999/cs5520project/gh-pages/images/Screen Shot 2021-11-04 at 5.20.25 PM.png>
+<img src = https://raw.githubusercontent.com/saiqi1999/cs5520project/gh-pages/images/ScreenShot1.png>
