@@ -12,5 +12,6 @@ Title: Welcome to Index Page
 </ul>
 ```
 _hello, and this is my index page._
-<img src = "https://raw.githubusercontent.com/saiqi1999/cs5520project/gh-pages/images/nyan-cat.gif" width="400"/>
 ```
+<img src = "https://raw.githubusercontent.com/saiqi1999/cs5520project/gh-pages/images/nyan-cat.gif" width="400"/>
+
