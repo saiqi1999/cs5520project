@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Assignment5: Basic timer worker added
+title: Assignment5 - Basic timer worker added
 Date: 2021-10-31
 ---
 Brief introduction: \
