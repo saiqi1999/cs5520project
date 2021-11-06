@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Assignment3: note APP
+title: Assignment3 - note APP
 date: 2021-09-28
 ---
 [link to the project](https://github.com/saiqi1999/cs5520project/tree/main/Assignment3)
