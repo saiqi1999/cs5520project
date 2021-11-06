@@ -1,6 +1,6 @@
 ---
 layout : default
-title: Assignment4
+title: Assignment4: Persistency 
 Date: 2021-10-13
 ---
 [Link to code](https://github.com/saiqi1999/cs5520project/tree/main/Assignment4)
