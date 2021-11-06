@@ -21,4 +21,7 @@ I wrote an application for note, including functions below:
 
 7. upper limit of note number is 7 
 
+Overview:\
+<img src = "https://raw.githubusercontent.com/saiqi1999/cs5520project/gh-pages/images/HW3/HW3overview.gif" width="360"/>\
+
 Thank you!
