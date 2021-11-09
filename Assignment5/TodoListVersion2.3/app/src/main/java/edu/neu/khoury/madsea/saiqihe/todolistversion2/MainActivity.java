@@ -12,7 +12,8 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import edu.neu.khoury.madsea.saiqihe.todolistversion2.RoomComponents.TodoNote;
-
+//TODO: UI design, make insert user friendly and beautiful
+//TODO: add a confirm fragment before deleting all the notes
 public class MainActivity extends AppCompatActivity{
     private TodoModelView modelView;
 
