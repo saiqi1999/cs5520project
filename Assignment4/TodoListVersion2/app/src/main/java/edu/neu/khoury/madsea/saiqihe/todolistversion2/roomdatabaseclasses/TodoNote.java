@@ -24,6 +24,17 @@ public class TodoNote {
     @ColumnInfo(name = "note_detail")
     private String detail;
 
+    /*public String getDetail1() {
+        return detail1;
+    }
+
+    public void setDetail1(String detail1) {
+        this.detail1 = detail1;
+    }
+
+    @ColumnInfo(name = "note_detail1")
+    private String detail1;*/
+
     public String getTitle() {
         return title;
     }
