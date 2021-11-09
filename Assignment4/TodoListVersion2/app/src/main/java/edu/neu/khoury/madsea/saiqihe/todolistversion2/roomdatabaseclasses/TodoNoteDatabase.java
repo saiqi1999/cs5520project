@@ -1,4 +1,4 @@
-package edu.neu.khoury.madsea.saiqihe.todolistversion2;
+package edu.neu.khoury.madsea.saiqihe.todolistversion2.roomdatabaseclasses;
 
 import android.content.Context;
 
@@ -8,6 +8,7 @@ import androidx.room.RoomDatabase;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
 @Database(entities = {TodoNote.class}, version = 1, exportSchema = false)
 public abstract class TodoNoteDatabase extends RoomDatabase {
     public abstract TodoNoteDao dao();
@@ -22,7 +23,6 @@ public abstract class TodoNoteDatabase extends RoomDatabase {
                     instance = Room.databaseBuilder(context.getApplicationContext(),
                             TodoNoteDatabase.class,
                             "todo_database").build();
-
                 }
             }
         }

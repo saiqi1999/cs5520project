@@ -1,15 +1,16 @@
-package edu.neu.khoury.madsea.saiqihe.todolistversion2;
+package edu.neu.khoury.madsea.saiqihe.todolistversion2.roomdatabaseclasses;
 
 
-import androidx.annotation.StringDef;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
 import java.util.List;
+
+import edu.neu.khoury.madsea.saiqihe.todolistversion2.roomdatabaseclasses.TodoNote;
+
 @Dao
 public interface TodoNoteDao {
     @Insert

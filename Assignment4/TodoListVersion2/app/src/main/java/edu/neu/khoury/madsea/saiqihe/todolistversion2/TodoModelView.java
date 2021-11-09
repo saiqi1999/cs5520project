@@ -5,9 +5,11 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
 
 import java.util.List;
+
+import edu.neu.khoury.madsea.saiqihe.todolistversion2.roomdatabaseclasses.TodoNote;
+import edu.neu.khoury.madsea.saiqihe.todolistversion2.roomdatabaseclasses.TodoRepo;
 
 public class TodoModelView extends AndroidViewModel {
     private TodoRepo repo;

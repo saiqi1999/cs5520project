@@ -1,4 +1,4 @@
-package edu.neu.khoury.madsea.saiqihe.todolistversion2;
+package edu.neu.khoury.madsea.saiqihe.todolistversion2.roomdatabaseclasses;
 
 import android.app.Application;
 
@@ -6,12 +6,16 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import edu.neu.khoury.madsea.saiqihe.todolistversion2.roomdatabaseclasses.TodoNote;
+import edu.neu.khoury.madsea.saiqihe.todolistversion2.roomdatabaseclasses.TodoNoteDao;
+import edu.neu.khoury.madsea.saiqihe.todolistversion2.roomdatabaseclasses.TodoNoteDatabase;
+
 public class TodoRepo {
 
     private TodoNoteDao dao;
     private LiveData<List<TodoNote>> lists;
 
-    TodoRepo(Application app){
+    public TodoRepo(Application app){
         TodoNoteDatabase db = TodoNoteDatabase.getInstance(app);
         dao = db.dao();
         lists = dao.selectAll();

@@ -1,4 +1,4 @@
-package edu.neu.khoury.madsea.saiqihe.todolistversion2;
+package edu.neu.khoury.madsea.saiqihe.todolistversion2.roomdatabaseclasses;
 
 import android.os.Parcel;
 
@@ -8,7 +8,6 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import java.security.PublicKey;
 import java.util.Objects;
 
 @Entity(tableName = "todo_note_table")

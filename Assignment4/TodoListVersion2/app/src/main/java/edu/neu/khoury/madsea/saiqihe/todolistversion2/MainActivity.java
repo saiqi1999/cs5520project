@@ -1,6 +1,5 @@
 package edu.neu.khoury.madsea.saiqihe.todolistversion2;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -9,9 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import edu.neu.khoury.madsea.saiqihe.todolistversion2.roomdatabaseclasses.TodoNote;
 
 public class MainActivity extends AppCompatActivity implements Someinterface{
     private TodoModelView modelView;
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements Someinterface{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        assert data != null;
+        if(data==null)return;
         if(requestCode==1){
             modelView.insert(new TodoNote(
                     data.getStringExtra("title"),
