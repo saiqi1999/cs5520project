@@ -15,6 +15,12 @@ you can select time using "pick time" button when you are creating or updating n
 while picking time the picked time will be shown in button\
 notify could be replaced by update, the old one won't create notifications in this case
 
+Update Nov 10:\
+I updated this project so there is a "TodoList Version 2.3" in this folder, it has new feature below:\
+added a switch to each note, which is used to pin certain notes\
+the switch will be shown in main activity(right to the title), you can change the note switch here, it will make a "slient" update\ 
+alarm clock info is now saved in database, so you'll find them the next time open the app\
+
 link to Code: \
 [https://github.com/saiqi1999/cs5520project/tree/main/Assignment5](https://github.com/saiqi1999/cs5520project/tree/main/Assignment5)\
 
