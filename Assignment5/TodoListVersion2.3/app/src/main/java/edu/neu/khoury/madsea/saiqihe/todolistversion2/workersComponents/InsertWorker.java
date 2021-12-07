@@ -1,4 +1,4 @@
-package edu.neu.khoury.madsea.saiqihe.todolistversion2.Workers;
+package edu.neu.khoury.madsea.saiqihe.todolistversion2.workersComponents;
 
 import android.app.Application;
 import android.content.Context;
@@ -8,8 +8,8 @@ import androidx.work.Data;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import edu.neu.khoury.madsea.saiqihe.todolistversion2.RoomComponents.TodoNote;
-import edu.neu.khoury.madsea.saiqihe.todolistversion2.RoomComponents.TodoRepo;
+import edu.neu.khoury.madsea.saiqihe.todolistversion2.roomDatabaseComponents.TodoNote;
+import edu.neu.khoury.madsea.saiqihe.todolistversion2.roomDatabaseComponents.TodoRepo;
 
 public class InsertWorker extends Worker {
     private TodoRepo repo;

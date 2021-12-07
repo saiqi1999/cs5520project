@@ -1,4 +1,4 @@
-package edu.neu.khoury.madsea.saiqihe.todolistversion2.RoomComponents;
+package edu.neu.khoury.madsea.saiqihe.todolistversion2.roomDatabaseComponents;
 
 
 import androidx.lifecycle.LiveData;
@@ -8,8 +8,6 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import java.util.List;
-
-import edu.neu.khoury.madsea.saiqihe.todolistversion2.RoomComponents.TodoNote;
 
 @Dao
 public interface TodoNoteDao {

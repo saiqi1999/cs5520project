@@ -1,14 +1,10 @@
-package edu.neu.khoury.madsea.saiqihe.todolistversion2.RoomComponents;
+package edu.neu.khoury.madsea.saiqihe.todolistversion2.roomDatabaseComponents;
 
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
-
-import edu.neu.khoury.madsea.saiqihe.todolistversion2.RoomComponents.TodoNote;
-import edu.neu.khoury.madsea.saiqihe.todolistversion2.RoomComponents.TodoNoteDao;
-import edu.neu.khoury.madsea.saiqihe.todolistversion2.RoomComponents.TodoNoteDatabase;
 
 public class TodoRepo {
 

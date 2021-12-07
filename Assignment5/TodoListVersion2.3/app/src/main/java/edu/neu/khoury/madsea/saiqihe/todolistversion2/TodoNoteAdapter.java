@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
-import edu.neu.khoury.madsea.saiqihe.todolistversion2.RoomComponents.TodoNote;
+import edu.neu.khoury.madsea.saiqihe.todolistversion2.roomDatabaseComponents.TodoNote;
 
 public class TodoNoteAdapter extends ListAdapter<TodoNote,TodoNoteViewHolder> {
     private TodoModelView modelView;

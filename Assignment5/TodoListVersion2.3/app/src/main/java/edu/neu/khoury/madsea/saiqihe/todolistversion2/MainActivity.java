@@ -10,18 +10,30 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 
-import edu.neu.khoury.madsea.saiqihe.todolistversion2.RoomComponents.TodoNote;
+import edu.neu.khoury.madsea.saiqihe.todolistversion2.firebaseComponents.AfterInputFailureListener;
+import edu.neu.khoury.madsea.saiqihe.todolistversion2.firebaseComponents.AfterInputSuccessListener;
+import edu.neu.khoury.madsea.saiqihe.todolistversion2.firebaseComponents.AfterQueryListener;
+import edu.neu.khoury.madsea.saiqihe.todolistversion2.roomDatabaseComponents.TodoNote;
 //TODO: UI design, make insert user friendly and beautiful
 //TODO: add a confirm fragment before deleting all the notes
 public class MainActivity extends AppCompatActivity{
     private TodoModelView modelView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        TodoNote testNote = new TodoNote("title","asd");
+        /*firebaseFirestore.collection("testNote")
+                .add(testNote)
+                .addOnSuccessListener(new AfterInputSuccessListener())
+                .addOnFailureListener(new AfterInputFailureListener());*/
+        firebaseFirestore.collection("testNote").get()
+        .addOnCompleteListener(new AfterQueryListener());
         //observe
         RecyclerView viewInMain = findViewById(R.id.recycle_hold);
         final TodoNoteAdapter myAdapter = new TodoNoteAdapter(new TodoNoteAdapter.NoteDiff(),this);

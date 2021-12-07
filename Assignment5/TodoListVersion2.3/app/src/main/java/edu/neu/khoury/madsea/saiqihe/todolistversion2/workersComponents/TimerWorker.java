@@ -1,4 +1,4 @@
-package edu.neu.khoury.madsea.saiqihe.todolistversion2.Workers;
+package edu.neu.khoury.madsea.saiqihe.todolistversion2.workersComponents;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -10,10 +10,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
-
-import java.time.LocalDateTime;
-
-import edu.neu.khoury.madsea.saiqihe.todolistversion2.R;
 
 public class TimerWorker extends Worker {
     public TimerWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {

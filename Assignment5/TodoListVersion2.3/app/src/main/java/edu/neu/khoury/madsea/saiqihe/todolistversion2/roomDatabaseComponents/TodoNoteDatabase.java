@@ -1,4 +1,4 @@
-package edu.neu.khoury.madsea.saiqihe.todolistversion2.RoomComponents;
+package edu.neu.khoury.madsea.saiqihe.todolistversion2.roomDatabaseComponents;
 
 import android.content.Context;
 
