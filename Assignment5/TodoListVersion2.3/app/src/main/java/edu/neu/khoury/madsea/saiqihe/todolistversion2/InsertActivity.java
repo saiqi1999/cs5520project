@@ -102,7 +102,6 @@ public class InsertActivity extends AppCompatActivity {
     }
 
     public void showTimePickerDialog(View view) {
-
         DialogFragment newFragment = new TimerPickerFragment();
         newFragment.show(getSupportFragmentManager(), "timePicker");
     }
