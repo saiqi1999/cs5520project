@@ -17,6 +17,9 @@ public class TodoNote {
     @PrimaryKey(autoGenerate = true)
     private Integer noteId;
 
+    @ColumnInfo(name = "firebase_id")
+    private String firebaseId;
+
     @NonNull
     @ColumnInfo(name = "note_title")
     private String title;
@@ -29,6 +32,10 @@ public class TodoNote {
 
     @ColumnInfo(name = "note_alarmTime")
     private String alarmTime;
+
+    public TodoNote() {
+
+    }
 
     public String getChecked() {
         return checked;
@@ -68,6 +75,14 @@ public class TodoNote {
 
     public void setNoteId(int noteId) {
         this.noteId = noteId;
+    }
+
+    public String getFirebaseId() {
+        return firebaseId;
+    }
+
+    public void setFirebaseId(String firebaseId) {
+        this.firebaseId = firebaseId;
     }
 
     public TodoNote(@NonNull String title, String detail) {

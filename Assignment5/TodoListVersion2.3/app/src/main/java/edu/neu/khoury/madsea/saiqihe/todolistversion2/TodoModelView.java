@@ -18,6 +18,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import edu.neu.khoury.madsea.saiqihe.todolistversion2.firebaseComponents.FirebaseExecutor;
 import edu.neu.khoury.madsea.saiqihe.todolistversion2.roomDatabaseComponents.TodoNote;
 import edu.neu.khoury.madsea.saiqihe.todolistversion2.roomDatabaseComponents.TodoRepo;
 import edu.neu.khoury.madsea.saiqihe.todolistversion2.workersComponents.InsertWorker;
@@ -29,14 +30,21 @@ public class TodoModelView extends AndroidViewModel {
     private WorkManager m;
     private MutableLiveData<Integer> hour = new MutableLiveData<>();
     private MutableLiveData<Integer> minute = new MutableLiveData<>();
+    private FirebaseExecutor firebaseExecutor;
 
     public TodoModelView(@NonNull Application application) {
         super(application);
         repo = new TodoRepo(application);
         items = repo.select();
         m = WorkManager.getInstance();
+        firebaseExecutor = new FirebaseExecutor(application,repo);
     }
-
+    public void syncLocal(){
+        firebaseExecutor.syncLocal();
+    }
+    public void syncCloud(){
+        firebaseExecutor.syncFirebase();
+    }
     public void insert(TodoNote note) {
         repo.insert(note);
     }
