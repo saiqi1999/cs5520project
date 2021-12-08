@@ -2,7 +2,12 @@ package edu.neu.khoury.madsea.saiqihe.todolistversion2.firebaseComponents;
 
 import android.app.Application;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,6 +69,7 @@ public class FirebaseExecutor {
         firebaseFirestore.collection(NOTE_COLLECTION).document(firebaseId).delete();
     }
 
+
     /**
      * when coming back, sync local database with cloud
      * got the repo and do it
@@ -93,6 +99,5 @@ public class FirebaseExecutor {
             }
         }
         for(String firebaseId : set) deleteNoteById(firebaseId);
-        syncLocal();
     }
 }

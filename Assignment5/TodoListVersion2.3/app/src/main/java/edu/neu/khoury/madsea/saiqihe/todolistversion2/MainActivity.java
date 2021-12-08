@@ -55,17 +55,23 @@ public class MainActivity extends AppCompatActivity {
         delButton.setOnClickListener(view -> {
             modelView.delete();
         });
+
+
     }
 
     @Override
-    public void onPostCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onPostCreate(savedInstanceState, persistentState);
-        modelView.syncLocal();
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        //sync
+        //first upload delete/insert note to cloud, empty these, then download all notes from cloud
+        modelView.syncCloud();
+        modelView.syncLocal();
     }
 
     @Override
