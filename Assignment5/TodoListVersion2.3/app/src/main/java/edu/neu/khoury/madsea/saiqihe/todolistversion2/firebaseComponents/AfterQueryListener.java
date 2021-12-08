@@ -44,5 +44,14 @@ public class AfterQueryListener implements OnCompleteListener<QuerySnapshot> {
     public void onComplete(@NonNull Task<QuerySnapshot> task) {
         runnableQuery.setTask(task);
         thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        localRepo.delete();
+        for(TodoNote note : saved){
+            localRepo.insert(note);
+        }
     }
 }

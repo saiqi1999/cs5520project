@@ -52,6 +52,6 @@ public class RunnableQuery implements Runnable{
                 saved.add(todoNote);
             }
         } else Log.w("query result", "query failed");
-        notify();
+
     }
 }

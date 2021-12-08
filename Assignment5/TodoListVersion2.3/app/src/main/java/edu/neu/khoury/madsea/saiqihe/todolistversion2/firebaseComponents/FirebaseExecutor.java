@@ -80,24 +80,24 @@ public class FirebaseExecutor {
         firebaseFirestore.collection(NOTE_COLLECTION)
                 .get()
                 .addOnCompleteListener(afterQueryListener);
-        firebaseFetch = afterQueryListener.getSaved();
     }
 
     public void syncFirebase() {
-        HashSet<String> set = new HashSet<>();
-        if(firebaseFetch!=null){
-            for (TodoNote note : firebaseFetch) set.add(note.getFirebaseId());
-        }
-        List<TodoNote> list = localRepo.select().getValue();
-        if(list==null)return;
-        for (TodoNote note : list) {
+        List<TodoNote> insertList = localRepo.selectInsert().getValue();
+        List<TodoNote> deleteList = localRepo.selectDelete().getValue();
+        if(insertList==null||deleteList==null)return;
+        for (TodoNote note : deleteList) {
             if (note.getFirebaseId() == null) {
-                insertNote(note);
-            } else {
-                updateNote(note);
-                set.remove(note.getFirebaseId());
+                deleteNoteById(note.getFirebaseId());
             }
         }
-        for(String firebaseId : set) deleteNoteById(firebaseId);
+        for (TodoNote note : insertList){
+            if(note.getFirebaseId()!=null){
+                updateNote(note);
+            }
+            else{
+                insertNote(note);
+            }
+        }
     }
 }
