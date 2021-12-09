@@ -75,17 +75,17 @@ public class TodoRepo {
     }
 
     public void update(TodoNote note) {
+        TodoNoteDatabase.executor.execute(() -> {
+            dao.update(note);
+        });
+    }
+
+    public void userUpdate(TodoNote note) {
         syncCache();
         TodoNoteDatabase.executor.execute(() -> {
             dao.update(note);
             deleteDao.insert(note);
             insertDao.insert(note);
-        });
-    }
-
-    public void userUpdate(TodoNote note) {
-        TodoNoteDatabase.executor.execute(() -> {
-            dao.update(note);
         });
     }
 
@@ -108,7 +108,7 @@ public class TodoRepo {
     public void deleteAndInsert(ArrayList<TodoNote> saved) {
         TodoNoteDatabase.executor.execute(() -> {
             dao.deleteAll();
-            for(TodoNote note : saved){
+            for (TodoNote note : saved) {
                 dao.insert(note);
             }
         });
