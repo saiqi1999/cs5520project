@@ -87,7 +87,7 @@ public class FirebaseExecutor {
         List<TodoNote> deleteList = localRepo.selectDelete().getValue();
         if(insertList==null||deleteList==null)return;
         for (TodoNote note : deleteList) {
-            if (note.getFirebaseId() == null) {
+            if (note.getFirebaseId() != null) {
                 deleteNoteById(note.getFirebaseId());
             }
         }
@@ -99,5 +99,7 @@ public class FirebaseExecutor {
                 insertNote(note);
             }
         }
+
     }
+
 }

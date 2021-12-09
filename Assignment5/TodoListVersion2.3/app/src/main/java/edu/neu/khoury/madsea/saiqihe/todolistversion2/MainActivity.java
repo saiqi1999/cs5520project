@@ -9,23 +9,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.util.Log;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
 
-import edu.neu.khoury.madsea.saiqihe.todolistversion2.firebaseComponents.AfterInputFailureListener;
-import edu.neu.khoury.madsea.saiqihe.todolistversion2.firebaseComponents.AfterInputSuccessListener;
-import edu.neu.khoury.madsea.saiqihe.todolistversion2.firebaseComponents.AfterQueryListener;
-import edu.neu.khoury.madsea.saiqihe.todolistversion2.firebaseComponents.FirebaseExecutor;
 import edu.neu.khoury.madsea.saiqihe.todolistversion2.roomDatabaseComponents.TodoNote;
 
 //TODO: UI design, make insert user friendly and beautiful
 //TODO: add a confirm fragment before deleting all the notes
 public class MainActivity extends AppCompatActivity {
     private TodoModelView modelView;
+    private TodoNoteAdapter myAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +30,11 @@ public class MainActivity extends AppCompatActivity {
         //modelView.syncLocal();
         //observe
         RecyclerView viewInMain = findViewById(R.id.recycle_hold);
-        final TodoNoteAdapter myAdapter = new TodoNoteAdapter(new TodoNoteAdapter.NoteDiff(), this);
+        myAdapter = new TodoNoteAdapter(new TodoNoteAdapter.NoteDiff(), this);
         viewInMain.setAdapter(myAdapter);
         viewInMain.setLayoutManager(new LinearLayoutManager(this));
+        modelView.selectInsert().observe(this, items->{});
+        modelView.selectDelete().observe(this, items->{});
         modelView.select().observe(this, items -> {
             myAdapter.submitList(items);
         });
@@ -72,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         //first upload delete/insert note to cloud, empty these, then download all notes from cloud
         modelView.syncCloud();
         modelView.syncLocal();
+
     }
 
     @Override
@@ -104,6 +101,9 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        modelView.select().observe(this, items -> {
+            myAdapter.submitList(items);
+        });
     }
 
     public void delete(TodoNote note) {
@@ -136,8 +136,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onResume() {
+        super.onResume();
     }
 
 

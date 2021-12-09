@@ -27,6 +27,8 @@ import edu.neu.khoury.madsea.saiqihe.todolistversion2.workersComponents.TimerWor
 public class TodoModelView extends AndroidViewModel {
     private TodoRepo repo;
     private final LiveData<List<TodoNote>> items;
+    private final LiveData<List<TodoNote>> itemsInsert;
+    private final LiveData<List<TodoNote>> itemsDelete;
     private WorkManager m;
     private MutableLiveData<Integer> hour = new MutableLiveData<>();
     private MutableLiveData<Integer> minute = new MutableLiveData<>();
@@ -36,17 +38,22 @@ public class TodoModelView extends AndroidViewModel {
         super(application);
         repo = new TodoRepo(application);
         items = repo.select();
+        itemsInsert = repo.selectInsert();
+        itemsDelete = repo.selectDelete();
         m = WorkManager.getInstance();
-        firebaseExecutor = new FirebaseExecutor(application,repo);
+        firebaseExecutor = new FirebaseExecutor(application, repo);
     }
-    public void syncLocal(){
+
+    public void syncLocal() {
         firebaseExecutor.syncLocal();
     }
-    public void syncCloud(){
+
+    public void syncCloud() {
         firebaseExecutor.syncFirebase();
     }
+
     public void insert(TodoNote note) {
-        repo.insert(note);
+        repo.userInsert(note);
     }
 
     public void startInsert(TodoNote note) {
@@ -59,15 +66,24 @@ public class TodoModelView extends AndroidViewModel {
     }
 
     public void delete() {
-        repo.delete();
+        repo.userDelete();
     }
 
     public LiveData<List<TodoNote>> select() {
         return items;
     }
 
+    public LiveData<List<TodoNote>> selectInsert() {
+        return itemsInsert;
+    }
+
+    public LiveData<List<TodoNote>> selectDelete() {
+        return itemsDelete;
+    }
+
+
     public void update(TodoNote note) {
-        repo.update(note);
+        repo.userUpdate(note);
     }
 
     public void startTimer(String titleS, String detailS, int time) {

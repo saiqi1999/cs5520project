@@ -42,6 +42,8 @@ public class AfterQueryListener implements OnCompleteListener<QuerySnapshot> {
 
     @Override
     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+        //only execute if task success
+        if(!task.isSuccessful())return;
         runnableQuery.setTask(task);
         thread.start();
         try {
@@ -49,9 +51,12 @@ public class AfterQueryListener implements OnCompleteListener<QuerySnapshot> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        localRepo.delete();
-        for(TodoNote note : saved){
-            localRepo.insert(note);
-        }
+        //no race condition
+        localRepo.deleteAndInsert(saved);
+
+        //sync
+        localRepo.cleanCache();
+        //has uploaded, label as synced
+        //FirebaseSyncFlag.getInstance().setFlag(true);
     }
 }
