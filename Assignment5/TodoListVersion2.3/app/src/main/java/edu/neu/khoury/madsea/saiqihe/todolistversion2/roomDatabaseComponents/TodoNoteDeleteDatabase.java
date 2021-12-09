@@ -22,7 +22,7 @@ public abstract class TodoNoteDeleteDatabase extends RoomDatabase {
                 if(instance==null){
                     instance = Room.databaseBuilder(context.getApplicationContext(),
                             TodoNoteDeleteDatabase.class,
-                            "todo_database_delete_2_3").build();
+                            "todo_database_delete_2_4").build();
 
                 }
             }
