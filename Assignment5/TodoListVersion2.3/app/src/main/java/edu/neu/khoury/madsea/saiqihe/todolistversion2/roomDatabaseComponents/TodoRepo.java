@@ -39,6 +39,7 @@ public class TodoRepo {
     public void userInsert(TodoNote t) {
         syncCache();
         TodoNoteDatabase.executor.execute(() -> {
+            //TODO their id may be different
             dao.insert(t);
             insertDao.insert(t);
         });
@@ -80,6 +81,16 @@ public class TodoRepo {
         });
     }
 
+    /**
+     * we are always refreshing local db, which made the id less reliable
+     * while we're offline, we will update it in local db and no firebase id will be assigned
+     * while we're online, when we first enter edit a note the online one is created
+     * what's more, it's sync write back and have a different id,
+     * and the original one is sync deleted! which made it not trackable
+     * I think I need to keep original id if possible when writing back
+     *
+     * @param note
+     */
     public void userUpdate(TodoNote note) {
         syncCache();
         TodoNoteDatabase.executor.execute(() -> {

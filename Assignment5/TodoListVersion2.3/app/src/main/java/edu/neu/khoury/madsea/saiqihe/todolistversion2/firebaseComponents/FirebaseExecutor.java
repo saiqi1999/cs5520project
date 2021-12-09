@@ -96,6 +96,7 @@ public class FirebaseExecutor {
                 updateNote(note);
             }
             else{
+                //here we have a diff note id
                 insertNote(note);
             }
         }

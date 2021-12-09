@@ -51,7 +51,7 @@ public class AfterQueryListener implements OnCompleteListener<QuerySnapshot> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        //no race condition
+        //no race condition, try to save id
         localRepo.deleteAndInsert(saved);
 
         //sync
