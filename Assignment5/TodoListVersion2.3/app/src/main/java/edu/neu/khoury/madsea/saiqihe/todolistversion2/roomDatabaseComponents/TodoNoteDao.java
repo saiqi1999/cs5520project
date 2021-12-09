@@ -22,8 +22,12 @@ public interface TodoNoteDao {
     public void deleteAll();
     @Update
     void update(TodoNote note);
-    @Query("UPDATE todo_note_table set note_title = :title and note_detail = :detail where note_id = :id")
-    void update2(String title, String detail, int id);
     @Delete
     public void delete(TodoNote note);
+    @Query("DELETE FROM todo_note_table where firebase_id = :firebaseId")
+    void deleteByFirebaseId(String firebaseId);
+    @Query("DELETE FROM todo_note_table where note_id = :noteId")
+    void deleteById(Integer noteId);
+    @Query("DELETE FROM todo_note_table where create_time = :createTime")
+    void deleteByCreateTime(String createTime);
 }

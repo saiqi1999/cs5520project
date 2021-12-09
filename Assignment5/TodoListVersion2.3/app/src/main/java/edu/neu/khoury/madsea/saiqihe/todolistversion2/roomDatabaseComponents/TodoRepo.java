@@ -9,6 +9,11 @@ import java.util.List;
 
 import edu.neu.khoury.madsea.saiqihe.todolistversion2.firebaseComponents.FirebaseSyncFlag;
 
+/**
+ * NOTE:
+ * ALL user[operate]() method with side effect called by view model
+ * ALL [operate]() method without side effect called by sync executor
+ */
 public class TodoRepo {
 
     private TodoNoteDao dao;
@@ -38,8 +43,9 @@ public class TodoRepo {
 
     public void userInsert(TodoNote t) {
         syncCache();
+        String s = System.currentTimeMillis()+"";
+        t.setCreateTime(s);
         TodoNoteDatabase.executor.execute(() -> {
-            //TODO their id may be different
             dao.insert(t);
             insertDao.insert(t);
         });
@@ -89,15 +95,83 @@ public class TodoRepo {
      * and the original one is sync deleted! which made it not trackable
      * I think I need to keep original id if possible when writing back
      *
-     * @param note
+     * struggling..
+     *
+     * solution by create time
+     * if the note has firebase id, it is saved on cloud:
+     * and we just find the firebaseId remove the one in 3 dbs and insert this into it
+     * if the note has no firebase id, it is not saved on cloud:
+     * but it could be synced to local with a diff noteId and a firebaseId cuz it's by insertDB
+     * we will try to find that one with same create time and copy fields from that one, del that one
+     * keep this note id so we can use update(), after that, update insertDB and delDB
+     * if we don't find the same create time, it's not synced yet
+     * we just update the one we have in mainDB, then find by createTime, update insDB and delDB
+     *
+     *
+     * @param note note with note id(may not correct) to be updated
      */
     public void userUpdate(TodoNote note) {
         syncCache();
-        TodoNoteDatabase.executor.execute(() -> {
+        if(note.getCreateTime()==null)return;//illegal added note, leave it
+
+        List<TodoNote> mainList = lists.getValue();
+
+        if(note.getFirebaseId()!=null){
+            note.setNoteId(null);
+            String firebaseId = note.getFirebaseId();
+            TodoNoteDatabase.executor.execute(()->{
+                dao.deleteByFirebaseId(firebaseId);
+                insertDao.deleteByFirebaseId(firebaseId);//possibly empty delete
+                deleteDao.deleteByFirebaseId(firebaseId);//possibly empty delete
+                dao.insert(note);
+                insertDao.insert(note);
+                deleteDao.insert(note);
+            });
+        }
+        else{
+            if(mainList==null)return;
+            String createTime = note.getCreateTime();
+            TodoNote findNote = null;
+            for(TodoNote n : mainList){
+                if(n.getCreateTime().equals(createTime)&&n.getFirebaseId()!=null){
+                    findNote = n;
+                    break;
+                }
+            }
+            if(findNote!=null){
+                //findNote: the one synced back, we just use that one and delete this local one
+                findNote.setChecked(note.getChecked());
+                findNote.setDetail(note.getDetail());
+                findNote.setAlarmTime(note.getAlarmTime());
+                findNote.setTitle(note.getTitle());
+                TodoNote finalFindNote = findNote;
+                TodoNoteDatabase.executor.execute(()->{
+                    dao.deleteById(note.getNoteId());
+                    dao.update(finalFindNote);
+                });
+                //idk if this will create synchronize problems, TODO
+                findNote.setNoteId(null);
+                TodoNote finalFindNote1 = findNote;
+                TodoNoteDatabase.executor.execute(()->{
+                    insertDao.insert(finalFindNote1);
+                    deleteDao.insert(finalFindNote1);
+                });
+            }
+            else {
+                TodoNoteDatabase.executor.execute(()->{
+                    dao.update(note);
+                    insertDao.deleteByCreateTime(note.getCreateTime());
+                    deleteDao.deleteByCreateTime(note.getCreateTime());
+                    insertDao.insert(note);
+                    deleteDao.insert(note);
+                });
+            }
+        }
+        /*TodoNoteDatabase.executor.execute(() -> {
             dao.update(note);
             deleteDao.insert(note);
             insertDao.insert(note);
-        });
+        });*/
     }
 
     public void cleanCache() {

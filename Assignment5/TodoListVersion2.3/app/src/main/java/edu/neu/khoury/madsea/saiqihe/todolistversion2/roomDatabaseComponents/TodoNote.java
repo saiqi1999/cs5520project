@@ -88,7 +88,7 @@ public class TodoNote {
         return noteId;
     }
 
-    public void setNoteId(int noteId) {
+    public void setNoteId(Integer noteId) {
         this.noteId = noteId;
     }
 
