@@ -89,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
                         data.getStringExtra("detail"));
                 t.setAlarmTime(data.getStringExtra("alarm_time"));
                 t.setChecked(data.getStringExtra("checked"));
+                t.setFirebaseId(data.getStringExtra("firebaseId"));
+                t.setCreateTime(data.getStringExtra("createTime"));
                 modelView.update(t);
             }
             try {
@@ -119,6 +121,8 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("detail", n.getDetail());
                 intent.putExtra("alarm_time", n.getAlarmTime());
                 intent.putExtra("checked", n.getChecked());
+                intent.putExtra("firebaseId", n.getFirebaseId());
+                intent.putExtra("createTime", n.getCreateTime());
             }
         }
         startActivityForResult(intent, 2);

@@ -27,6 +27,8 @@ public class InsertActivity extends AppCompatActivity {
     private EditText detail;
     private EditText timer;
     private TextView idv;
+    private TextView fIdv;
+    private TextView cTv;
     private TodoModelView modelView;
     private Switch aSwitch;
 
@@ -52,6 +54,8 @@ public class InsertActivity extends AppCompatActivity {
         title = findViewById(R.id.text_title);
         detail = findViewById(R.id.text_detail);
         idv = findViewById(R.id.text_id_hidden);
+        fIdv = findViewById(R.id.text_firebaseId_hidden);
+        cTv = findViewById(R.id.text_createTime_hidden);
         timer = findViewById(R.id.text_timer);
         aSwitch = findViewById(R.id.insert_switch);
         modelView = new ViewModelProvider(this).get(TodoModelView.class);
@@ -65,6 +69,8 @@ public class InsertActivity extends AppCompatActivity {
             title.setText(inputIntent.getStringExtra("title"));
             detail.setText(inputIntent.getStringExtra("detail"));
             idv.setText(inputIntent.getStringExtra("id"));
+            fIdv.setText(inputIntent.getStringExtra("firebaseId"));
+            cTv.setText(inputIntent.getStringExtra("createTime"));
             if(inputIntent.getStringExtra("alarm_time")!=null){
                 String s = inputIntent.getStringExtra("alarm_time");
                 String[] sp = s.split("-");
@@ -79,6 +85,8 @@ public class InsertActivity extends AppCompatActivity {
                 intent.putExtra("id", Integer.parseInt(idv.getText().toString()));
             intent.putExtra("title", title.getText().toString());
             intent.putExtra("detail", detail.getText().toString());
+            intent.putExtra("firebaseId", fIdv.getText().toString());
+            intent.putExtra("createTime", cTv.getText().toString());
             intent.putExtra("alarm_time",modelView.getHour().getValue()+"-"+modelView.getMinute().getValue());
             intent.putExtra("checked",aSwitch.isChecked()?"checked":"unchecked");
             String s = timer.getText().toString();

@@ -52,6 +52,8 @@ public class FirebaseExecutor {
         map.put("detail", note.getDetail());
         map.put("noteId", note.getNoteId());
         map.put("checked", note.getChecked());
+        map.put("createTime",note.getCreateTime());
+        map.put("firebaseId",note.getFirebaseId());
         map.put("alarmTime", note.getAlarmTime());
         firebaseFirestore.collection(NOTE_COLLECTION)
                 .document(note.getFirebaseId())
