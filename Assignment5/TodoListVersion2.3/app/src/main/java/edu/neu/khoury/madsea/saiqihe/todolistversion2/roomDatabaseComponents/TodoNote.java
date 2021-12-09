@@ -33,8 +33,23 @@ public class TodoNote {
     @ColumnInfo(name = "note_alarmTime")
     private String alarmTime;
 
+    @ColumnInfo(name = "create_time")
+    private String createTime;
+
     public TodoNote() {
 
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    /**
+     * this will record the note and distinguish it in diff dbs
+     * @param createTime timestamp while create
+     */
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
     public String getChecked() {
