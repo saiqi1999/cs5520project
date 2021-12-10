@@ -43,7 +43,7 @@ public class TodoRepo {
 
     public void userInsert(TodoNote t) {
         syncCache();
-        String s = System.currentTimeMillis()+"";
+        String s = System.currentTimeMillis() + "";
         t.setCreateTime(s);
         TodoNoteDatabase.executor.execute(() -> {
             dao.insert(t);
@@ -94,9 +94,9 @@ public class TodoRepo {
      * what's more, it's sync write back and have a different id,
      * and the original one is sync deleted! which made it not trackable
      * I think I need to keep original id if possible when writing back
-     *
+     * <p>
      * struggling..
-     *
+     * <p>
      * solution by create time
      * if the note has firebase id, it is saved on cloud:
      * and we just find the firebaseId remove the one in 3 dbs and insert this into it
@@ -107,19 +107,18 @@ public class TodoRepo {
      * if we don't find the same create time, it's not synced yet
      * we just update the one we have in mainDB, then find by createTime, update insDB and delDB
      *
-     *
      * @param note note with note id(may not correct) to be updated
      */
     public void userUpdate(TodoNote note) {
         syncCache();
-        if(note.getCreateTime()==null)return;//illegal added note, leave it
+        if (note.getCreateTime() == null) return;//illegal added note, leave it
 
         List<TodoNote> mainList = lists.getValue();
 
-        if(note.getFirebaseId()!=null){
+        if (note.getFirebaseId() != null&& !note.getFirebaseId().equals("")) {
             note.setNoteId(null);
             String firebaseId = note.getFirebaseId();
-            TodoNoteDatabase.executor.execute(()->{
+            TodoNoteDatabase.executor.execute(() -> {
                 dao.deleteByFirebaseId(firebaseId);
                 insertDao.deleteByFirebaseId(firebaseId);//possibly empty delete
                 deleteDao.deleteByFirebaseId(firebaseId);//possibly empty delete
@@ -127,9 +126,14 @@ public class TodoRepo {
                 insertDao.insert(note);
                 deleteDao.insert(note);
             });
-        }
-        else{
-            if(mainList==null)return;
+        } else {
+            TodoNoteDatabase.executor.execute(() -> {
+                dao.update(note);
+                insertDao.update(note);
+                deleteDao.update(note);
+            });
+            //just fail because sync not finished
+            /*if(mainList==null)return;
             String createTime = note.getCreateTime();
             TodoNote findNote = null;
             for(TodoNote n : mainList){
@@ -156,16 +160,8 @@ public class TodoRepo {
                     insertDao.insert(finalFindNote1);
                     deleteDao.insert(finalFindNote1);
                 });
-            }
-            else {
-                TodoNoteDatabase.executor.execute(()->{
-                    dao.update(note);
-                    insertDao.deleteByCreateTime(note.getCreateTime());
-                    deleteDao.deleteByCreateTime(note.getCreateTime());
-                    insertDao.insert(note);
-                    deleteDao.insert(note);
-                });
-            }
+            }*/
+            /**/
         }
         /*TodoNoteDatabase.executor.execute(() -> {
             dao.update(note);
