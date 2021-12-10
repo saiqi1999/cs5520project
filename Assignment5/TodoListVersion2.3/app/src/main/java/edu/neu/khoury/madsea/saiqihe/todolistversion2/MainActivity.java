@@ -49,7 +49,9 @@ public class MainActivity extends AppCompatActivity {
         //del
         FloatingActionButton delButton = findViewById(R.id.float_del_button);
         delButton.setOnClickListener(view -> {
-            modelView.delete();
+            ConfirmDialogFragment confirmDialogFragment = new ConfirmDialogFragment();
+            confirmDialogFragment.setModelView(modelView);
+            confirmDialogFragment.show(getSupportFragmentManager(),"tag");
         });
 
 

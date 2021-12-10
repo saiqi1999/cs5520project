@@ -74,9 +74,11 @@ public class TodoRepo {
         TodoNoteDatabase.executor.execute(() -> {
             if (lists.getValue() != null) {
                 for (TodoNote note : lists.getValue()) {
+                    if(note.getFirebaseId()!=null&&!note.getFirebaseId().equals(""))
                     deleteDao.insert(note);
                 }
             }
+            insertDao.deleteAll();
             dao.deleteAll();
         });
     }
