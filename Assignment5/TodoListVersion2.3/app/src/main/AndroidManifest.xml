@@ -10,9 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TodoListVersion2">
         <activity
-            android:parentActivityName=".MainActivity"
-            android:name=".InsertActivity"
+            android:name=".InsertTimerActivity"
             android:exported="true" />
+        <activity
+            android:name=".InsertAlarmclockActivity"
+            android:exported="true"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

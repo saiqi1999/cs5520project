@@ -2,25 +2,23 @@ package edu.neu.khoury.madsea.saiqihe.todolistversion2;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.EdgeEffect;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.time.LocalTime;
 
-public class InsertActivity extends AppCompatActivity {
+import edu.neu.khoury.madsea.saiqihe.todolistversion2.R;
+
+public class InsertTimerActivity extends AppCompatActivity {
+
     private Button button;
     private Button picker;
     private EditText title;
@@ -109,8 +107,4 @@ public class InsertActivity extends AppCompatActivity {
         });
     }
 
-    public void showTimePickerDialog(View view) {
-        DialogFragment newFragment = new TimerPickerFragment();
-        newFragment.show(getSupportFragmentManager(), "timePicker");
-    }
 }

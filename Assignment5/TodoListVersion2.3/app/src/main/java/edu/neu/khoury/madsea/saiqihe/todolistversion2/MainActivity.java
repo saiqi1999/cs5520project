@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         //add
         FloatingActionButton button = findViewById(R.id.float_action_button);
         button.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, InsertActivity.class);
+            Intent intent = new Intent(MainActivity.this, InsertAlarmclockActivity.class);
             startActivityForResult(intent, 1);
         });
 
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void update(TodoNote note) {
-        Intent intent = new Intent(MainActivity.this, InsertActivity.class);
+        Intent intent = new Intent(MainActivity.this, InsertAlarmclockActivity.class);
         intent.putExtra("id", note.getNoteId().toString());
         for (TodoNote n : modelView.select().getValue()) {
             if (n.getNoteId().equals(note.getNoteId())) {

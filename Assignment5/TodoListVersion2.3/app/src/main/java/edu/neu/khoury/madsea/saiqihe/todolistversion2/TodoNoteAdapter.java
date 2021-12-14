@@ -32,7 +32,7 @@ public class TodoNoteAdapter extends ListAdapter<TodoNote,TodoNoteViewHolder> {
             mainActivity.update(new TodoNote(Integer.parseInt(idView.getText().toString()),
                     titleView.getText().toString(),
                     detailView.getText().toString()));
-            //Intent intent = new Intent(parent.getContext(),InsertActivity.class);
+            //Intent intent = new Intent(parent.getContext(),InsertAlarmclockActivity.class);
         });
         holder.itemView.findViewById(R.id.recycle_detail).setOnClickListener(view -> {
             TextView titleV = holder.itemView.findViewById(R.id.recycle_title);
