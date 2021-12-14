@@ -55,6 +55,13 @@ public class TodoRepo {
         return lists;
     }
 
+    public LiveData<List<TodoNote>> selectAlarms() {
+        return dao.selectAllAlarm();
+    }
+    public LiveData<List<TodoNote>> selectTimers() {
+        return dao.selectAllTimer();
+    }
+
     public LiveData<List<TodoNote>> selectInsert() {
         return listsInsert;
     }

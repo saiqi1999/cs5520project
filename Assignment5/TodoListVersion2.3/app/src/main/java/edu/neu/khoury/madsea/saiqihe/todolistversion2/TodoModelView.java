@@ -72,7 +72,10 @@ public class TodoModelView extends AndroidViewModel {
     public LiveData<List<TodoNote>> select() {
         return items;
     }
-
+    public LiveData<List<TodoNote>> select(String type){
+        if(type.equals("timers"))return repo.selectTimers();
+        else return repo.selectAlarms();
+    }
     public LiveData<List<TodoNote>> selectInsert() {
         return itemsInsert;
     }

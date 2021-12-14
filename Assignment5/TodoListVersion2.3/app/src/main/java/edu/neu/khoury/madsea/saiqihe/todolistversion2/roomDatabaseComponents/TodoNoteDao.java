@@ -16,6 +16,10 @@ public interface TodoNoteDao {
     public void insert(TodoNote note);
     @Query("SELECT * FROM todo_note_table")
     public LiveData<List<TodoNote>> selectAll();
+    @Query("SELECT * FROM todo_note_table where note_alarmTime = 'null-null'")
+    public LiveData<List<TodoNote>> selectAllTimer();
+    @Query("SELECT * FROM todo_note_table where note_alarmTime != 'null-null'")
+    public LiveData<List<TodoNote>> selectAllAlarm();
     @Query("SELECT * FROM todo_note_table")
     public List<TodoNote> staticSelectAll();
     @Query("DELETE FROM todo_note_table")

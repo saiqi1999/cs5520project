@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -16,9 +17,11 @@ import edu.neu.khoury.madsea.saiqihe.todolistversion2.roomDatabaseComponents.Tod
 
 //TODO: UI design, make insert user friendly and beautiful
 //TODO: add a confirm fragment before deleting all the notes
+//todo: try separate alarming and timer by set alarm time "null", separate acts from layouts
 public class MainActivity extends AppCompatActivity {
     private TodoModelView modelView;
     private TodoNoteAdapter myAdapter;
+    private String currentPage;
 
 
     @Override
@@ -26,8 +29,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         modelView = new ViewModelProvider(this).get(TodoModelView.class);
+        currentPage = "alarms";
         //no sync
-        //modelView.syncLocal();
+
         //observe
         RecyclerView viewInMain = findViewById(R.id.recycle_hold);
         myAdapter = new TodoNoteAdapter(new TodoNoteAdapter.NoteDiff(), this);
@@ -36,14 +40,23 @@ public class MainActivity extends AppCompatActivity {
         modelView.selectInsert().observe(this, items->{});
         modelView.selectDelete().observe(this, items->{});
         modelView.select().observe(this, items -> {
+//            myAdapter.submitList(items);
+        });
+        modelView.select(currentPage).observe(this, items -> {
             myAdapter.submitList(items);
         });
 
         //add
         FloatingActionButton button = findViewById(R.id.float_action_button);
         button.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, InsertAlarmclockActivity.class);
-            startActivityForResult(intent, 1);
+            if(currentPage.equals("alarms")){
+                Intent intent = new Intent(MainActivity.this, InsertAlarmclockActivity.class);
+                startActivityForResult(intent, 1);
+            }
+            else {
+                Intent intent = new Intent(MainActivity.this, InsertTimerActivity.class);
+                startActivityForResult(intent, 1);
+            }
         });
 
         //del
@@ -54,6 +67,19 @@ public class MainActivity extends AppCompatActivity {
             confirmDialogFragment.show(getSupportFragmentManager(),"tag");
         });
 
+        //switch
+        Button toTimersButton = findViewById(R.id.to_timers);
+        Button toAlarmsButton = findViewById(R.id.to_alarm_clocks);
+        toTimersButton.setOnClickListener((view)->{
+            currentPage = "timers";
+            modelView.select(currentPage).observe(this, items -> {
+                myAdapter.submitList(items);
+            });});
+        toAlarmsButton.setOnClickListener((view)->{
+            currentPage = "alarms";
+            modelView.select(currentPage).observe(this, items -> {
+                myAdapter.submitList(items);
+            });});
 
     }
 
@@ -95,6 +121,18 @@ public class MainActivity extends AppCompatActivity {
                 t.setCreateTime(data.getStringExtra("createTime"));
                 modelView.update(t);
             }
+            if(data.getStringExtra("alarm_time")!=null&&
+                    data.getStringExtra("alarm_time").equals("null-null")){
+                currentPage = "timers";
+                modelView.select(currentPage).observe(this, items -> {
+                    myAdapter.submitList(items);
+                });
+            }else {
+                currentPage = "alarms";
+                modelView.select(currentPage).observe(this, items -> {
+                    myAdapter.submitList(items);
+                });
+            }
             try {
                 String titleS = data.getStringExtra("title");
                 String detailS = data.getStringExtra("detail");
@@ -105,20 +143,29 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        modelView.select().observe(this, items -> {
+   /*     modelView.select().observe(this, items -> {
             myAdapter.submitList(items);
-        });
+        });*/
     }
 
     public void delete(TodoNote note) {
         modelView.delete();
     }
-
+    //todo: don't know why alarms just lose their time data and got invisible, need to save it
     public void update(TodoNote note) {
-        Intent intent = new Intent(MainActivity.this, InsertAlarmclockActivity.class);
-        intent.putExtra("id", note.getNoteId().toString());
+        Intent intent = null;
         for (TodoNote n : modelView.select().getValue()) {
             if (n.getNoteId().equals(note.getNoteId())) {
+                if(n.getAlarmTime()==null){
+                    intent = new Intent(MainActivity.this, InsertAlarmclockActivity.class);
+                }
+                else if(n.getAlarmTime().equals("null-null")){//timer
+                    intent = new Intent(MainActivity.this, InsertTimerActivity.class);
+                }
+                else {//alarm clock
+                    intent = new Intent(MainActivity.this, InsertAlarmclockActivity.class);
+                }
+                intent.putExtra("id", note.getNoteId().toString());
                 intent.putExtra("title", n.getTitle());
                 intent.putExtra("detail", n.getDetail());
                 intent.putExtra("alarm_time", n.getAlarmTime());
@@ -139,11 +186,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         modelView.update(t);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
 

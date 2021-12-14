@@ -6,13 +6,17 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
+
+import java.util.List;
 
 import edu.neu.khoury.madsea.saiqihe.todolistversion2.roomDatabaseComponents.TodoNote;
 
 public class TodoNoteAdapter extends ListAdapter<TodoNote,TodoNoteViewHolder> {
     private TodoModelView modelView;
+    TodoNoteViewHolder holder;
     private final MainActivity mainActivity;
     public TodoNoteAdapter(@NonNull DiffUtil.ItemCallback<TodoNote> diffCallback, MainActivity mainActivity) {
         super(diffCallback);
@@ -20,10 +24,14 @@ public class TodoNoteAdapter extends ListAdapter<TodoNote,TodoNoteViewHolder> {
         //modelView = new ViewModelProvider((ViewModelStoreOwner) this).get(TodoModelView.class);
     }
 
+    @Override
+    public void onCurrentListChanged(@NonNull List<TodoNote> previousList, @NonNull List<TodoNote> currentList) {
+        super.onCurrentListChanged(previousList, currentList);
+    }
 
     @Override
     public TodoNoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        TodoNoteViewHolder holder =  TodoNoteViewHolder.create(parent);
+        holder =  TodoNoteViewHolder.create(parent);
         holder.itemView.findViewById(R.id.recycle_title).setBackgroundColor(Color.GRAY);
         holder.itemView.findViewById(R.id.recycle_title).setOnClickListener(view -> {
             TextView titleView = holder.itemView.findViewById(R.id.recycle_title);
@@ -36,7 +44,6 @@ public class TodoNoteAdapter extends ListAdapter<TodoNote,TodoNoteViewHolder> {
         });
         holder.itemView.findViewById(R.id.recycle_detail).setOnClickListener(view -> {
             TextView titleV = holder.itemView.findViewById(R.id.recycle_title);
-            titleV.setBackgroundColor(Color.BLUE);
         });
         holder.itemView.findViewById(R.id.recycle_switch).setOnClickListener(view -> {
             TextView titleView = holder.itemView.findViewById(R.id.recycle_title);

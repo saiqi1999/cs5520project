@@ -46,7 +46,7 @@ public class InsertTimerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_insert);
+        setContentView(R.layout.activity_insert_timer);
         button = findViewById(R.id.insert_submit_button);
         picker = findViewById(R.id.insert_picker_button);
         title = findViewById(R.id.text_title);
@@ -69,12 +69,6 @@ public class InsertTimerActivity extends AppCompatActivity {
             idv.setText(inputIntent.getStringExtra("id"));
             fIdv.setText(inputIntent.getStringExtra("firebaseId"));
             cTv.setText(inputIntent.getStringExtra("createTime"));
-            if(inputIntent.getStringExtra("alarm_time")!=null){
-                String s = inputIntent.getStringExtra("alarm_time");
-                String[] sp = s.split("-");
-                LocalTime time = LocalTime.now();
-                picker.setText("notice after "+sp[0]+" hours "+sp[1]+" minutes");
-            }
             if(inputIntent.getStringExtra("checked").equals("checked"))aSwitch.toggle();
         }
         button.setOnClickListener(view -> {

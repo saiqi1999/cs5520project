@@ -87,7 +87,8 @@ public class InsertAlarmclockActivity extends AppCompatActivity {
             intent.putExtra("detail", detail.getText().toString());
             intent.putExtra("firebaseId", fIdv.getText().toString());
             intent.putExtra("createTime", cTv.getText().toString());
-            intent.putExtra("alarm_time",modelView.getHour().getValue()+"-"+modelView.getMinute().getValue());
+            String alarm = modelView.getHour().getValue()+"-"+modelView.getMinute().getValue();
+            if(!alarm.equals("null-null"))intent.putExtra("alarm_time",alarm);
             intent.putExtra("checked",aSwitch.isChecked()?"checked":"unchecked");
             String s = timer.getText().toString();
             if(s.equals(""))s="0";
