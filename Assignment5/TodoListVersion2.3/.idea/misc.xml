@@ -5,7 +5,13 @@
       <map>
         <entry key="../../../../../../../../layout/custom_preview.xml" value="0.1140625" />
         <entry key="../../../../../../layout/custom_preview.xml" value="0.1296875" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.17314814814814813" />
+        <entry key="app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.17314814814814813" />
+        <entry key="app/src/main/res/drawable/ic_baseline_add_circle_outline_24.xml" value="0.17314814814814813" />
         <entry key="app/src/main/res/drawable/ic_baseline_clear_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_google_circle_outline_24.xml" value="0.17314814814814813" />
+        <entry key="app/src/main/res/drawable/ic_baseline_new_account_circle_24.xml" value="0.17314814814814813" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.17314814814814813" />
         <entry key="app/src/main/res/layout/activity_insert.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_insert_timer.xml" value="0.10435663627152988" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />

@@ -8,4 +8,8 @@
     <string name="delay_second">DELAY::SECOND</string>
     <string name="title">Title</string>
     <string name="detail">detail</string>
+    <string name="signup">sign up</string>
+    <string name="google_login">google OAuth login</string>
+    <string name="signin">sign in</string>
+    <string name="sign_in">sign in</string>
 </resources>

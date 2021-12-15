@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/white"
     android:background="@color/white"
+    android:backgroundTint="@color/white"
     tools:context=".MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -36,23 +36,63 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:backgroundTint="#555555"
         android:contentDescription="@string/add"
-        app:layout_constraintBottom_toTopOf="@id/bottom_menu"
-        app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/ic_baseline_add_circle_outline_24"
-        />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="48dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/float_login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:backgroundTint="#555555"
+        android:contentDescription="@string/sign_in"
+        android:src="@drawable/ic_baseline_account_circle_24"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/float_action_button"
+        app:maxImageSize="48dp" />
+    <!--        android:src="@drawable/ic_baseline_add_circle_outline_24"-->
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/float_del_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:background="#60E64141"
+        android:background="#555555"
         android:contentDescription="@string/del"
         android:src="@drawable/ic_baseline_clear_24"
-        app:backgroundTint="#D84242"
+        app:backgroundTint="#442222"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/float_login_button"
+        app:maxImageSize="48dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/float_sign_up_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:backgroundTint="#555555"
+        android:contentDescription="@string/signup"
+        android:src="@drawable/ic_baseline_new_account_circle_24"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/float_del_button"
+        app:maxImageSize="48dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/float_google_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:backgroundTint="#555555"
+        android:contentDescription="@string/google_login"
+        android:src="@drawable/ic_baseline_google_circle_outline_24"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/float_sign_up_button"
+        app:maxImageSize="48dp" />
 
     <LinearLayout
         android:id="@+id/bottom_menu"
@@ -65,23 +105,23 @@
 
         <Button
             android:id="@+id/to_alarm_clocks"
-            android:text="AlarmClocks"
-            android:textSize="20sp"
-            android:backgroundTint="@color/white"
-            android:textColor="#777777"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:text="AlarmClocks"
+            android:textColor="#777777"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/to_timers"
-            android:text="Timers"
-            android:textSize="20sp"
-            android:backgroundTint="@color/white"
-            android:textColor="#777777"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:text="Timers"
+            android:textColor="#777777"
+            android:textSize="20sp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
