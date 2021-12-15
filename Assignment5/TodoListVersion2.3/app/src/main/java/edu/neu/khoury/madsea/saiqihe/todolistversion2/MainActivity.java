@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView viewInMain2;
     private String currentPage;
     private HashMap<String,TodoNote> updList;
-
+    private FirebaseAuth myAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 t.setAlarmTime(data.getStringExtra("alarm_time"));
                 t.setChecked(data.getStringExtra("checked"));
                 modelView.insert(t);
-            } else {
+            } else if(requestCode == 2) {
                 TodoNote t = new TodoNote(
                         data.getIntExtra("id", 0),
                         data.getStringExtra("title"),
