@@ -18,7 +18,7 @@ public interface TodoNoteDao {
     public LiveData<List<TodoNote>> selectAll();
     @Query("SELECT * FROM todo_note_table where note_alarmTime = 'null-null'")
     public LiveData<List<TodoNote>> selectAllTimer();
-    @Query("SELECT * FROM todo_note_table where note_alarmTime != 'null-null'")
+    @Query("SELECT * FROM todo_note_table where note_alarmTime != 'null-null' or note_alarmTime is NULL")
     public LiveData<List<TodoNote>> selectAllAlarm();
     @Query("SELECT * FROM todo_note_table")
     public List<TodoNote> staticSelectAll();

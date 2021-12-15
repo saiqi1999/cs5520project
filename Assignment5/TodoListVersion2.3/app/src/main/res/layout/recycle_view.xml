@@ -13,6 +13,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible" />
+    <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/hidden_createTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/recycle_title"

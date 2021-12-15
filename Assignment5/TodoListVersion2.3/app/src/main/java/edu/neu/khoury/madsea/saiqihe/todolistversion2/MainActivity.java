@@ -8,10 +8,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 import edu.neu.khoury.madsea.saiqihe.todolistversion2.roomDatabaseComponents.TodoNote;
 
@@ -21,6 +28,9 @@ import edu.neu.khoury.madsea.saiqihe.todolistversion2.roomDatabaseComponents.Tod
 public class MainActivity extends AppCompatActivity {
     private TodoModelView modelView;
     private TodoNoteAdapter myAdapter;
+    private TodoNoteAdapter myAdapter2;
+    RecyclerView viewInMain;
+    RecyclerView viewInMain2;
     private String currentPage;
 
 
@@ -29,31 +39,38 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         modelView = new ViewModelProvider(this).get(TodoModelView.class);
-        currentPage = "alarms";
         //no sync
 
         //observe
-        RecyclerView viewInMain = findViewById(R.id.recycle_hold);
+        viewInMain = findViewById(R.id.recycle_hold);
+        viewInMain2 = findViewById(R.id.recycle_hold2);
         myAdapter = new TodoNoteAdapter(new TodoNoteAdapter.NoteDiff(), this);
+        myAdapter2 = new TodoNoteAdapter(new TodoNoteAdapter.NoteDiff(), this);
         viewInMain.setAdapter(myAdapter);
+        viewInMain2.setAdapter(myAdapter2);
         viewInMain.setLayoutManager(new LinearLayoutManager(this));
-        modelView.selectInsert().observe(this, items->{});
-        modelView.selectDelete().observe(this, items->{});
+        viewInMain2.setLayoutManager(new LinearLayoutManager(this));
+        modelView.selectInsert().observe(this, items -> {
+        });
+        modelView.selectDelete().observe(this, items -> {
+        });
         modelView.select().observe(this, items -> {
-//            myAdapter.submitList(items);
         });
-        modelView.select(currentPage).observe(this, items -> {
-            myAdapter.submitList(items);
+        modelView.select("alarms").observe(this, items -> {
+            myAdapter.submitList(sortByCreateTime(items));
         });
+        modelView.select("timers").observe(this, items -> {
+            myAdapter2.submitList(sortByCreateTime(items));
+        });
+        switchUiToAlarm();
 
         //add
         FloatingActionButton button = findViewById(R.id.float_action_button);
         button.setOnClickListener(view -> {
-            if(currentPage.equals("alarms")){
+            if (currentPage.equals("alarms")) {
                 Intent intent = new Intent(MainActivity.this, InsertAlarmclockActivity.class);
                 startActivityForResult(intent, 1);
-            }
-            else {
+            } else {
                 Intent intent = new Intent(MainActivity.this, InsertTimerActivity.class);
                 startActivityForResult(intent, 1);
             }
@@ -64,24 +81,22 @@ public class MainActivity extends AppCompatActivity {
         delButton.setOnClickListener(view -> {
             ConfirmDialogFragment confirmDialogFragment = new ConfirmDialogFragment();
             confirmDialogFragment.setModelView(modelView);
-            confirmDialogFragment.show(getSupportFragmentManager(),"tag");
+            confirmDialogFragment.show(getSupportFragmentManager(), "tag");
         });
 
         //switch
         Button toTimersButton = findViewById(R.id.to_timers);
         Button toAlarmsButton = findViewById(R.id.to_alarm_clocks);
-        toTimersButton.setOnClickListener((view)->{
-            currentPage = "timers";
-            modelView.select(currentPage).observe(this, items -> {
-                myAdapter.submitList(items);
-            });});
-        toAlarmsButton.setOnClickListener((view)->{
-            currentPage = "alarms";
-            modelView.select(currentPage).observe(this, items -> {
-                myAdapter.submitList(items);
-            });});
+        toTimersButton.setOnClickListener((view) -> {
+            switchUiToTimer();
+        });
+        toAlarmsButton.setOnClickListener((view) -> {
+            switchUiToAlarm();
+        });
 
     }
+
+
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
@@ -121,17 +136,11 @@ public class MainActivity extends AppCompatActivity {
                 t.setCreateTime(data.getStringExtra("createTime"));
                 modelView.update(t);
             }
-            if(data.getStringExtra("alarm_time")!=null&&
-                    data.getStringExtra("alarm_time").equals("null-null")){
-                currentPage = "timers";
-                modelView.select(currentPage).observe(this, items -> {
-                    myAdapter.submitList(items);
-                });
-            }else {
-                currentPage = "alarms";
-                modelView.select(currentPage).observe(this, items -> {
-                    myAdapter.submitList(items);
-                });
+            if (data.getStringExtra("alarm_time") != null &&
+                    data.getStringExtra("alarm_time").equals("null-null")) {
+                switchUiToTimer();
+            } else {
+                switchUiToAlarm();
             }
             try {
                 String titleS = data.getStringExtra("title");
@@ -143,26 +152,36 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-   /*     modelView.select().observe(this, items -> {
-            myAdapter.submitList(items);
-        });*/
+        //listener recover
+        Button toTimersButton = findViewById(R.id.to_timers);
+        Button toAlarmsButton = findViewById(R.id.to_alarm_clocks);
+        if (currentPage.equals("timers")) {
+            switchUiToTimer();
+        } else {
+            switchUiToAlarm();
+        }
+        toTimersButton.setOnClickListener((view) -> {
+            switchUiToTimer();
+        });
+        toAlarmsButton.setOnClickListener((view) -> {
+            switchUiToAlarm();
+        });
     }
 
     public void delete(TodoNote note) {
         modelView.delete();
     }
+
     //todo: don't know why alarms just lose their time data and got invisible, need to save it
     public void update(TodoNote note) {
-        Intent intent = null;
+        Intent intent = null;//note id could change
         for (TodoNote n : modelView.select().getValue()) {
-            if (n.getNoteId().equals(note.getNoteId())) {
-                if(n.getAlarmTime()==null){
+            if (n.getCreateTime().equals(note.getCreateTime())) {
+                if (n.getAlarmTime() == null) {
                     intent = new Intent(MainActivity.this, InsertAlarmclockActivity.class);
-                }
-                else if(n.getAlarmTime().equals("null-null")){//timer
+                } else if (n.getAlarmTime().equals("null-null")) {//timer
                     intent = new Intent(MainActivity.this, InsertTimerActivity.class);
-                }
-                else {//alarm clock
+                } else {//alarm clock
                     intent = new Intent(MainActivity.this, InsertAlarmclockActivity.class);
                 }
                 intent.putExtra("id", note.getNoteId().toString());
@@ -188,5 +207,38 @@ public class MainActivity extends AppCompatActivity {
         modelView.update(t);
     }
 
+    private void switchUiToTimer() {
+        Button toTimersButton = findViewById(R.id.to_timers);
+        Button toAlarmsButton = findViewById(R.id.to_alarm_clocks);
+        currentPage = "timers";
+        toTimersButton.setBackgroundColor(Color.GRAY);
+        toAlarmsButton.setBackgroundColor(Color.WHITE);
+        viewInMain.setVisibility(View.INVISIBLE);
+        viewInMain2.setVisibility(View.VISIBLE);
+    }
 
+    private void switchUiToAlarm() {
+        Button toTimersButton = findViewById(R.id.to_timers);
+        Button toAlarmsButton = findViewById(R.id.to_alarm_clocks);
+        currentPage = "alarms";
+        toTimersButton.setBackgroundColor(Color.WHITE);
+        toAlarmsButton.setBackgroundColor(Color.GRAY);
+        viewInMain2.setVisibility(View.INVISIBLE);
+        viewInMain.setVisibility(View.VISIBLE);
+    }
+
+    private List<TodoNote> sortByCreateTime(List<TodoNote> items) {
+        HashMap<String,TodoNote> map = new HashMap<>();
+        ArrayList<Long> times = new ArrayList<>();
+        for(TodoNote note : items){
+            times.add(Long.parseLong(note.getCreateTime()));
+            map.put(note.getCreateTime(),note);
+        }
+        Collections.sort(times);
+        ArrayList<TodoNote> rst = new ArrayList<>();
+        for(Long l : times){
+            rst.add(map.get(l.toString()));
+        }
+        return rst;
+    }
 }

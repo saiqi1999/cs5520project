@@ -17,13 +17,25 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/recycle_view" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycle_hold2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/vertical_padding"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/recycle_view" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/float_action_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:contentDescription="@string/add"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_menu"
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/ic_baseline_add_circle_outline_24"
         />

@@ -16,7 +16,7 @@ import edu.neu.khoury.madsea.saiqihe.todolistversion2.roomDatabaseComponents.Tod
 
 public class TodoNoteAdapter extends ListAdapter<TodoNote,TodoNoteViewHolder> {
     private TodoModelView modelView;
-    TodoNoteViewHolder holder;
+
     private final MainActivity mainActivity;
     public TodoNoteAdapter(@NonNull DiffUtil.ItemCallback<TodoNote> diffCallback, MainActivity mainActivity) {
         super(diffCallback);
@@ -31,30 +31,31 @@ public class TodoNoteAdapter extends ListAdapter<TodoNote,TodoNoteViewHolder> {
 
     @Override
     public TodoNoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        holder =  TodoNoteViewHolder.create(parent);
+        TodoNoteViewHolder holder =  TodoNoteViewHolder.create(parent);
         holder.itemView.findViewById(R.id.recycle_title).setBackgroundColor(Color.GRAY);
         holder.itemView.findViewById(R.id.recycle_title).setOnClickListener(view -> {
             TextView titleView = holder.itemView.findViewById(R.id.recycle_title);
             TextView detailView = holder.itemView.findViewById(R.id.recycle_detail);
             TextView idView = holder.itemView.findViewById(R.id.hidden_id);
-            mainActivity.update(new TodoNote(Integer.parseInt(idView.getText().toString()),
+            TextView timeView = holder.itemView.findViewById(R.id.hidden_createTime);
+            TodoNote t = new TodoNote(Integer.parseInt(idView.getText().toString()),
                     titleView.getText().toString(),
-                    detailView.getText().toString()));
-            //Intent intent = new Intent(parent.getContext(),InsertAlarmclockActivity.class);
-        });
-        holder.itemView.findViewById(R.id.recycle_detail).setOnClickListener(view -> {
-            TextView titleV = holder.itemView.findViewById(R.id.recycle_title);
+                    detailView.getText().toString());
+            t.setCreateTime(timeView.getText().toString());
+            mainActivity.update(t);
         });
         holder.itemView.findViewById(R.id.recycle_switch).setOnClickListener(view -> {
             TextView titleView = holder.itemView.findViewById(R.id.recycle_title);
             TextView detailView = holder.itemView.findViewById(R.id.recycle_detail);
             TextView idView = holder.itemView.findViewById(R.id.hidden_id);
+            TextView timeView = holder.itemView.findViewById(R.id.hidden_createTime);
             TodoNote t = new TodoNote(Integer.parseInt(idView.getText().toString()),
                     titleView.getText().toString(),
                     detailView.getText().toString());
             Switch aSwitch = holder.itemView.findViewById(R.id.recycle_switch);
             if(aSwitch.isChecked())t.setChecked("checked");
             else t.setChecked("unchecked");
+            t.setCreateTime(timeView.getText().toString());
             mainActivity.silentUpdate(t);
         });
         return holder;
@@ -63,7 +64,7 @@ public class TodoNoteAdapter extends ListAdapter<TodoNote,TodoNoteViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull TodoNoteViewHolder holder, int position) {
         TodoNote note = getItem(position);
-        holder.bind(note.getNoteId()+"",note.getTitle(),note.getDetail(),note.getChecked());
+        holder.bind(note.getNoteId()+"",note.getTitle(),note.getDetail(),note.getChecked(),note.getCreateTime());
     }
 
     static class NoteDiff extends DiffUtil.ItemCallback<TodoNote>{
