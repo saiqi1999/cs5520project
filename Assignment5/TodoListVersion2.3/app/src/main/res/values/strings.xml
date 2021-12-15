@@ -6,4 +6,6 @@
     <string name="timer_seconds">TIMER: SECONDS</string>
     <string name="pick_time">pick time</string>
     <string name="delay_second">DELAY::SECOND</string>
+    <string name="title">Title</string>
+    <string name="detail">detail</string>
 </resources>
