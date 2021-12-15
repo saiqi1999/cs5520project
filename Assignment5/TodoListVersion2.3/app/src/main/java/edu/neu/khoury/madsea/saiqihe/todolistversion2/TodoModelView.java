@@ -127,4 +127,7 @@ public class TodoModelView extends AndroidViewModel {
         return minute;
     }
 
+    public void mainThreadUpdate(TodoNote note) {
+        repo.mainThreadUserUpdate(note);
+    }
 }

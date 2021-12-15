@@ -23,6 +23,7 @@ public class TodoRepo {
     private LiveData<List<TodoNote>> listsInsert;
     private LiveData<List<TodoNote>> listsDelete;
 
+
     public TodoRepo(Application app) {
         TodoNoteDatabase db = TodoNoteDatabase.getInstance(app);
         TodoNoteInsertDatabase dbInsert = TodoNoteInsertDatabase.getInstance(app);
@@ -36,9 +37,7 @@ public class TodoRepo {
     }
 
     public void insert(TodoNote t) {
-        TodoNoteDatabase.executor.execute(() -> {
-            dao.insert(t);
-        });
+        TodoNoteDatabase.executor.execute(() -> dao.insert(t));
     }
 
     public void userInsert(TodoNote t) {
@@ -58,6 +57,7 @@ public class TodoRepo {
     public LiveData<List<TodoNote>> selectAlarms() {
         return dao.selectAllAlarm();
     }
+
     public LiveData<List<TodoNote>> selectTimers() {
         return dao.selectAllTimer();
     }
@@ -71,9 +71,7 @@ public class TodoRepo {
     }
 
     public void delete() {
-        TodoNoteDatabase.executor.execute(() -> {
-            dao.deleteAll();
-        });
+        TodoNoteDatabase.executor.execute(() -> dao.deleteAll());
     }
 
     public void userDelete() {
@@ -81,8 +79,8 @@ public class TodoRepo {
         TodoNoteDatabase.executor.execute(() -> {
             if (lists.getValue() != null) {
                 for (TodoNote note : lists.getValue()) {
-                    if(note.getFirebaseId()!=null&&!note.getFirebaseId().equals(""))
-                    deleteDao.insert(note);
+                    if (note.getFirebaseId() != null && !note.getFirebaseId().equals(""))
+                        deleteDao.insert(note);
                 }
             }
             insertDao.deleteAll();
@@ -91,9 +89,7 @@ public class TodoRepo {
     }
 
     public void update(TodoNote note) {
-        TodoNoteDatabase.executor.execute(() -> {
-            dao.update(note);
-        });
+        TodoNoteDatabase.executor.execute(() -> dao.update(note));
     }
 
     /**
@@ -124,59 +120,50 @@ public class TodoRepo {
 
         List<TodoNote> mainList = lists.getValue();
 
-        if (note.getFirebaseId() != null&& !note.getFirebaseId().equals("")) {
+        if (note.getFirebaseId() != null && !note.getFirebaseId().equals("")) {
             note.setNoteId(null);
             String firebaseId = note.getFirebaseId();
+            TodoNote finalNote2 = note;
             TodoNoteDatabase.executor.execute(() -> {
                 dao.deleteByFirebaseId(firebaseId);
                 insertDao.deleteByFirebaseId(firebaseId);//possibly empty delete
                 deleteDao.deleteByFirebaseId(firebaseId);//possibly empty delete
-                dao.insert(note);
-                insertDao.insert(note);
-                deleteDao.insert(note);
+                dao.insert(finalNote2);
+                insertDao.insert(finalNote2);
+                deleteDao.insert(finalNote2);
             });
         } else {
-            TodoNoteDatabase.executor.execute(() -> {
-                dao.update(note);
-                insertDao.update(note);
-                deleteDao.update(note);
-            });
-            //just fail because sync not finished
-            /*if(mainList==null)return;
-            String createTime = note.getCreateTime();
-            TodoNote findNote = null;
-            for(TodoNote n : mainList){
-                if(n.getCreateTime().equals(createTime)&&n.getFirebaseId()!=null){
-                    findNote = n;
-                    break;
+            List<TodoNote> synNote = dao.staticSelectAll();
+            boolean found = false;
+            for(TodoNote sync : synNote){
+                if(sync.getCreateTime().equals(note.getCreateTime())
+                        && sync.getFirebaseId() != null
+                        && !sync.getFirebaseId().equals("")){
+                    dao.deleteById(note.getNoteId());
+                    note = sync;
+                    found = true;
                 }
             }
-            if(findNote!=null){
-                //findNote: the one synced back, we just use that one and delete this local one
-                findNote.setChecked(note.getChecked());
-                findNote.setDetail(note.getDetail());
-                findNote.setAlarmTime(note.getAlarmTime());
-                findNote.setTitle(note.getTitle());
-                TodoNote finalFindNote = findNote;
-                TodoNoteDatabase.executor.execute(()->{
-                    dao.deleteById(note.getNoteId());
-                    dao.update(finalFindNote);
+            if(found){
+                TodoNote finalNote = note;
+                TodoNoteDatabase.executor.execute(() -> {
+                    dao.deleteByFirebaseId(finalNote.getFirebaseId());
+                    insertDao.deleteByFirebaseId(finalNote.getFirebaseId());//possibly empty delete
+                    deleteDao.deleteByFirebaseId(finalNote.getFirebaseId());//possibly empty delete
+                    dao.insert(finalNote);
+                    insertDao.insert(finalNote);
+                    deleteDao.insert(finalNote);
                 });
-                //idk if this will create synchronize problems, TODO
-                findNote.setNoteId(null);
-                TodoNote finalFindNote1 = findNote;
-                TodoNoteDatabase.executor.execute(()->{
-                    insertDao.insert(finalFindNote1);
-                    deleteDao.insert(finalFindNote1);
+            }
+            else {
+                TodoNote finalNote1 = note;
+                TodoNoteDatabase.executor.execute(() -> {
+                    dao.update(finalNote1);
+                    insertDao.update(finalNote1);
+                    deleteDao.update(finalNote1);
                 });
-            }*/
-            /**/
+            }
         }
-        /*TodoNoteDatabase.executor.execute(() -> {
-            dao.update(note);
-            deleteDao.insert(note);
-            insertDao.insert(note);
-        });*/
     }
 
     public void cleanCache() {
@@ -202,5 +189,39 @@ public class TodoRepo {
                 dao.insert(note);
             }
         });
+    }
+
+    /**
+     * synchronous update, avoid use this too often
+     *
+     * @param note to update
+     */
+    public void mainThreadUserUpdate(TodoNote note) {
+        syncCache();
+        if (note.getCreateTime() == null) return;//illegal added note, leave it
+
+        List<TodoNote> mainList = lists.getValue();
+
+        if (note.getFirebaseId() != null && !note.getFirebaseId().equals("")) {
+            note.setNoteId(null);
+            String firebaseId = note.getFirebaseId();
+            dao.deleteByFirebaseId(firebaseId);
+            insertDao.deleteByFirebaseId(firebaseId);//possibly empty delete
+            deleteDao.deleteByFirebaseId(firebaseId);//possibly empty delete
+            dao.insert(note);
+            insertDao.insert(note);
+            deleteDao.insert(note);
+        } else {
+            dao.update(note);
+            insertDao.update(note);
+            deleteDao.update(note);
+        }
+    }
+
+    public List<TodoNote> getSynInsert(){
+        return insertDao.staticSelectAll();
+    }
+    public List<TodoNote> getSynDelete(){
+        return deleteDao.staticSelectAll();
     }
 }

@@ -85,8 +85,9 @@ public class FirebaseExecutor {
     }
 
     public void syncFirebase() {
-        List<TodoNote> insertList = localRepo.selectInsert().getValue();
-        List<TodoNote> deleteList = localRepo.selectDelete().getValue();
+        //List<TodoNote> insertList = localRepo.selectInsert().getValue();
+        List<TodoNote> insertList = localRepo.getSynInsert();
+        List<TodoNote> deleteList = localRepo.getSynDelete();
         if(insertList==null||deleteList==null)return;
         for (TodoNote note : deleteList) {
             if (note.getFirebaseId() != null) {

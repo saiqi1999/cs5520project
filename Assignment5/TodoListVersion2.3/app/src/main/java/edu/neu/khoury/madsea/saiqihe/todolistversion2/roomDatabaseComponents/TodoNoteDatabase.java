@@ -22,7 +22,9 @@ public abstract class TodoNoteDatabase extends RoomDatabase {
                 if(instance==null){
                     instance = Room.databaseBuilder(context.getApplicationContext(),
                             TodoNoteDatabase.class,
-                            "todo_database_2_4").build();
+                            "todo_database_2_4")
+                            .allowMainThreadQueries()
+                            .build();
                 }
             }
         }

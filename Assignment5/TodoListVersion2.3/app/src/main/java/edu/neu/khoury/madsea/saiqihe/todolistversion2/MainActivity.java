@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView viewInMain;
     RecyclerView viewInMain2;
     private String currentPage;
+    private HashMap<String,TodoNote> updList;
 
 
     @Override
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         modelView = new ViewModelProvider(this).get(TodoModelView.class);
+        updList = new HashMap<>();
         //no sync
 
         //observe
@@ -107,6 +109,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        //silent update
+        for(TodoNote note : updList.values()){
+            modelView.mainThreadUpdate(note);
+        }
+        updList.clear();
         //sync
         //first upload delete/insert note to cloud,
         //empty local change database, then download all notes from cloud
@@ -198,14 +205,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void silentUpdate(TodoNote t) {
+        TodoNote upd = null;
         for (TodoNote n : modelView.select().getValue()) {
-            if (n.getNoteId().equals(t.getNoteId())) {
-                t.setTitle(n.getTitle());
-                t.setDetail(n.getDetail());
-                t.setAlarmTime(n.getAlarmTime());
+            if (n.getCreateTime().equals(t.getCreateTime())) {
+                n.setChecked(t.getChecked());
+                upd = n;
             }
         }
-        modelView.update(t);
+        if(upd!=null){
+            updList.put(upd.getCreateTime(),upd);
+        }
     }
 
     private void switchUiToTimer() {
