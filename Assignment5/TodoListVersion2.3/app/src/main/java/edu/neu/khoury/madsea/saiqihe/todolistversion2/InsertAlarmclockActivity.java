@@ -35,13 +35,13 @@ public class InsertAlarmclockActivity extends AppCompatActivity {
     @Override
     protected void onResumeFragments() {
         super.onResumeFragments();
-        Log.d("insert Act","insert frag resume");
+        Log.d("insert Act", "insert frag resume");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("insert Act","insert resume");
+        Log.d("insert Act", "insert resume");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -59,9 +59,9 @@ public class InsertAlarmclockActivity extends AppCompatActivity {
         timer = findViewById(R.id.text_timer);
         aSwitch = findViewById(R.id.insert_switch);
         modelView = new ViewModelProvider(this).get(TodoModelView.class);
-        modelView.getMinute().observe(this, item->{
-            if(item!=null){
-                picker.setText("notice after "+modelView.getHour().getValue().toString()+" hours "+item.toString()+" minutes");
+        modelView.getMinute().observe(this, item -> {
+            if (item != null) {
+                picker.setText("alarm at " + modelView.getHour().getValue().toString() + ":" + item.toString());
             }
         });
         Intent inputIntent = getIntent();
@@ -71,13 +71,13 @@ public class InsertAlarmclockActivity extends AppCompatActivity {
             idv.setText(inputIntent.getStringExtra("id"));
             fIdv.setText(inputIntent.getStringExtra("firebaseId"));
             cTv.setText(inputIntent.getStringExtra("createTime"));
-            if(inputIntent.getStringExtra("alarm_time")!=null){
+            if (inputIntent.getStringExtra("alarm_time") != null) {
                 String s = inputIntent.getStringExtra("alarm_time");
                 String[] sp = s.split("-");
                 LocalTime time = LocalTime.now();
-                picker.setText("notice after "+sp[0]+" hours "+sp[1]+" minutes");
+                picker.setText("alarm at " + sp[0] + ":" + sp[1]);
             }
-            if(inputIntent.getStringExtra("checked").equals("checked"))aSwitch.toggle();
+            if (inputIntent.getStringExtra("checked").equals("checked")) aSwitch.toggle();
         }
         button.setOnClickListener(view -> {
             Intent intent = new Intent();
@@ -87,20 +87,20 @@ public class InsertAlarmclockActivity extends AppCompatActivity {
             intent.putExtra("detail", detail.getText().toString());
             intent.putExtra("firebaseId", fIdv.getText().toString());
             intent.putExtra("createTime", cTv.getText().toString());
-            String alarm = modelView.getHour().getValue()+"-"+modelView.getMinute().getValue();
-            if(!alarm.equals("null-null"))intent.putExtra("alarm_time",alarm);
-            intent.putExtra("checked",aSwitch.isChecked()?"checked":"unchecked");
+            String alarm = modelView.getHour().getValue() + "-" + modelView.getMinute().getValue();
+            if (!alarm.equals("null-null")) intent.putExtra("alarm_time", alarm);
+            intent.putExtra("checked", aSwitch.isChecked() ? "checked" : "unchecked");
             String s = timer.getText().toString();
-            if(s.equals(""))s="0";
+            if (s.equals("")) s = "0";
             int sec = Integer.parseInt(s);
             Log.d("my set sec", sec + "");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                if(modelView.getMinute().getValue()!=null) {
+                if (modelView.getMinute().getValue() != null) {
                     sec += modelView.getMinute().getValue() * 60;
                     sec += modelView.getHour().getValue() * 3600;
                 }
             }
-            if(sec<0)sec=1;
+            if (sec < 0) sec = 1;
             intent.putExtra("timer", sec + "");
             setResult(RESULT_OK, intent);
             /*if(modelView.getMinute()!=0){
