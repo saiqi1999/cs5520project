@@ -108,7 +108,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         //sync
-        //first upload delete/insert note to cloud, empty these, then download all notes from cloud
+        //first upload delete/insert note to cloud,
+        //empty local change database, then download all notes from cloud
         modelView.syncCloud();
         modelView.syncLocal();
 

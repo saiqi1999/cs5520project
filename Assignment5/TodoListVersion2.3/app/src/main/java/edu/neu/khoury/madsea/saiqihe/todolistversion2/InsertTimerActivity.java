@@ -23,7 +23,9 @@ public class InsertTimerActivity extends AppCompatActivity {
     private Button picker;
     private EditText title;
     private EditText detail;
-    private EditText timer;
+    private EditText timerSec;
+    private EditText timerMin;
+    private EditText timerHrs;
     private TextView idv;
     private TextView fIdv;
     private TextView cTv;
@@ -54,7 +56,9 @@ public class InsertTimerActivity extends AppCompatActivity {
         idv = findViewById(R.id.text_id_hidden);
         fIdv = findViewById(R.id.text_firebaseId_hidden);
         cTv = findViewById(R.id.text_createTime_hidden);
-        timer = findViewById(R.id.text_timer);
+        timerSec = findViewById(R.id.text_timerSec);
+        timerMin = findViewById(R.id.text_timerMin);
+        timerHrs = findViewById(R.id.text_timerHr);
         aSwitch = findViewById(R.id.insert_switch);
         modelView = new ViewModelProvider(this).get(TodoModelView.class);
         modelView.getMinute().observe(this, item->{
@@ -81,22 +85,28 @@ public class InsertTimerActivity extends AppCompatActivity {
             intent.putExtra("createTime", cTv.getText().toString());
             intent.putExtra("alarm_time",modelView.getHour().getValue()+"-"+modelView.getMinute().getValue());
             intent.putExtra("checked",aSwitch.isChecked()?"checked":"unchecked");
-            String s = timer.getText().toString();
-            if(s.equals(""))s="0";
-            int sec = Integer.parseInt(s);
-            Log.d("my set sec", sec + "");
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String sec = timerSec.getText().toString();
+            String min = timerMin.getText().toString();
+            String hrs = timerHrs.getText().toString();
+            try{
+                int totalSec;
+                if(sec.equals(""))sec="0";
+                if(min.equals(""))min="0";
+                if(hrs.equals(""))hrs="0";
+                totalSec = Integer.parseInt(sec);
+                totalSec += Integer.parseInt(min) * 60;
+                totalSec += Integer.parseInt(hrs) * 3600;
+                if(totalSec<0)totalSec=1;
+                intent.putExtra("timer", totalSec + "");
+            }catch (Exception ignored){
+            }
+            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 if(modelView.getMinute().getValue()!=null) {
                     sec += modelView.getMinute().getValue() * 60;
                     sec += modelView.getHour().getValue() * 3600;
                 }
-            }
-            if(sec<0)sec=1;
-            intent.putExtra("timer", sec + "");
-            setResult(RESULT_OK, intent);
-            /*if(modelView.getMinute()!=0){
-                modelView.startTimer("auto","",modelView.getMinute());
             }*/
+            setResult(RESULT_OK, intent);
             finish();
         });
     }
