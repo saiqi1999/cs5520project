@@ -1,5 +1,6 @@
 package edu.neu.khoury.madsea.saiqihe.todolistversion2;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         modelView = new ViewModelProvider(this).get(TodoModelView.class);
         updList = new HashMap<>();
+        myAuth = FirebaseAuth.getInstance();
         //no sync
 
         //observe
@@ -97,6 +100,22 @@ public class MainActivity extends AppCompatActivity {
             switchUiToAlarm();
         });
 
+        //sign in
+        FloatingActionButton signInButton = findViewById(R.id.float_login_button);
+        signInButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            intent.putExtra("type","signIn");
+            startActivityForResult(intent,3);
+        });
+
+        //sign up
+        FloatingActionButton signUpButton = findViewById(R.id.float_sign_up_button);
+        signUpButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+            intent.putExtra("type","signUp");
+            startActivityForResult(intent,4);
+        });
+
     }
 
 
@@ -110,6 +129,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        //check for current user
+        if(myAuth.getCurrentUser()!=null){
+            modelView.updateCurrentUser(myAuth.getCurrentUser().getEmail());
+        }
         //silent update
         for(TodoNote note : updList.values()){
             modelView.mainThreadUpdate(note);
@@ -126,7 +149,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data != null) {
+        if(requestCode == 3) {
+            if(myAuth.getCurrentUser()!=null){
+                String displayName = myAuth.getCurrentUser().getDisplayName();
+                Toast.makeText(getApplicationContext(), "Welcome back, "+ displayName, Toast.LENGTH_SHORT).show();
+            }
+        }else if(requestCode == 4) {
+            if(myAuth.getCurrentUser()!=null){
+                String displayName = myAuth.getCurrentUser().getDisplayName();
+                if(displayName==null)displayName = "";
+                Toast.makeText(getApplicationContext(), "Greetings "+ displayName, Toast.LENGTH_SHORT).show();
+            }
+        }
+        else if (data != null) {
             if (requestCode == 1) {
                 TodoNote t = new TodoNote(
                         data.getStringExtra("title"),

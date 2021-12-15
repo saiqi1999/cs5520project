@@ -130,4 +130,8 @@ public class TodoModelView extends AndroidViewModel {
     public void mainThreadUpdate(TodoNote note) {
         repo.mainThreadUserUpdate(note);
     }
+
+    public void updateCurrentUser(String username){
+        firebaseExecutor.setNoteCollection(username);
+    }
 }

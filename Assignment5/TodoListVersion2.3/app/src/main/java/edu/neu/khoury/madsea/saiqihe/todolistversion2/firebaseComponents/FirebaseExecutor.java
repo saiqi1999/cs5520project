@@ -2,23 +2,17 @@ package edu.neu.khoury.madsea.saiqihe.todolistversion2.firebaseComponents;
 
 import android.app.Application;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 import edu.neu.khoury.madsea.saiqihe.todolistversion2.roomDatabaseComponents.TodoNote;
 import edu.neu.khoury.madsea.saiqihe.todolistversion2.roomDatabaseComponents.TodoRepo;
 
 public class FirebaseExecutor {
-    private static final String NOTE_COLLECTION = "TodoNote";
+    private String noteCollection = "TodoNote";
     private final FirebaseFirestore firebaseFirestore;
     private ArrayList<TodoNote> firebaseFetch;
     private TodoRepo localRepo;
@@ -34,7 +28,7 @@ public class FirebaseExecutor {
      * @param note target
      */
     public void insertNote(TodoNote note) {
-        firebaseFirestore.collection(NOTE_COLLECTION)
+        firebaseFirestore.collection(noteCollection)
                 .add(note)
                 .addOnSuccessListener(new AfterInputSuccessListener())
                 .addOnFailureListener(new AfterInputFailureListener());
@@ -55,7 +49,7 @@ public class FirebaseExecutor {
         map.put("createTime",note.getCreateTime());
         map.put("firebaseId",note.getFirebaseId());
         map.put("alarmTime", note.getAlarmTime());
-        firebaseFirestore.collection(NOTE_COLLECTION)
+        firebaseFirestore.collection(noteCollection)
                 .document(note.getFirebaseId())
                 .set(map)
                 .addOnFailureListener(new AfterInputFailureListener());
@@ -68,7 +62,7 @@ public class FirebaseExecutor {
      */
     public void deleteNoteById(String firebaseId) {
         if (firebaseId == null) return;
-        firebaseFirestore.collection(NOTE_COLLECTION).document(firebaseId).delete();
+        firebaseFirestore.collection(noteCollection).document(firebaseId).delete();
     }
 
 
@@ -79,7 +73,7 @@ public class FirebaseExecutor {
     public void syncLocal() {
         AfterQueryListener afterQueryListener = new AfterQueryListener();
         afterQueryListener.setLocalRepo(localRepo);
-        firebaseFirestore.collection(NOTE_COLLECTION)
+        firebaseFirestore.collection(noteCollection)
                 .get()
                 .addOnCompleteListener(afterQueryListener);
     }
@@ -106,4 +100,11 @@ public class FirebaseExecutor {
 
     }
 
+    public String getNoteCollection() {
+        return noteCollection;
+    }
+
+    public void setNoteCollection(String noteCollection) {
+        this.noteCollection = noteCollection;
+    }
 }
