@@ -5,7 +5,8 @@ title: Final project submittion, You should really look at this post
 
 I submitted it on [https://github.com/saiqi1999/cs5520project/tree/main/Final%20Submission](https://github.com/saiqi1999/cs5520project/tree/main/Final%20Submission)
 
-Short video: https://user-images.githubusercontent.com/90421945/146342795-5205da0b-a28e-4cea-8ddc-78051fdd7d67.mp4
+Here's a powerpoint as a Doc
+[Saiqi_FinalProjectPresentation_cs5520_fall2021.pptx](https://github.com/saiqi1999/cs5520project/files/7725912/SaiqiHe_FinalProjectPresentation_cs5520_fall2021.pptx)
 
 # 1. Implement user interface design
    I made the UI better, and add a switch pages for alarm clocks and timers\
@@ -26,5 +27,4 @@ Short video: https://user-images.githubusercontent.com/90421945/146342795-5205da
    This worked as iCloud account for "photos" app, and a achieved it by firebase fireauth\
    I also implemented OAuth method, but it's not activated. It will be activated once I put it on Google playstore and get the SHA-1 fingerprint generated
    
-   Here's a powerpoint as a Doc
-[SaiqiHe_FinalProjectPresentation_cs5520_fall2021.pptx](https://github.com/saiqi1999/cs5520project/files/7725912/SaiqiHe_FinalProjectPresentation_cs5520_fall2021.pptx)
+ 
