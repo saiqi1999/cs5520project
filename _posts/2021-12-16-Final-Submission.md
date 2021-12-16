@@ -3,7 +3,7 @@ layout: default
 title: Final project submittion, You should really look at this post
 ---
 
-I submitted it on [https://github.com/saiqi1999/cs5520project/tree/main/Final%20Submission](https://github.com/saiqi1999/cs5520project/tree/main/Final%20Submission)
+Source code on [https://github.com/saiqi1999/cs5520project/tree/main/Final%20Submission](https://github.com/saiqi1999/cs5520project/tree/main/Final%20Submission)
 
 Here's a powerpoint as a Doc
 [Saiqi_FinalProjectPresentation_cs5520_fall2021.pptx](https://github.com/saiqi1999/cs5520project/files/7725912/SaiqiHe_FinalProjectPresentation_cs5520_fall2021.pptx)
