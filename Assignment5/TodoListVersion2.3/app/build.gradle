@@ -13,7 +13,7 @@ android {
         minSdk 21
         targetSdk 31
         versionCode 1
-        versionName "2.5"
+        versionName "2.6"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -35,7 +35,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.0.1')
     implementation 'com.google.firebase:firebase-firestore'
     implementation 'com.google.firebase:firebase-auth'
-
+    implementation 'com.google.android.gms:play-services-auth:20.0.0'
 
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
     implementation "androidx.work:work-runtime:2.5.0"
