@@ -42,6 +42,12 @@ import edu.neu.khoury.madsea.saiqihe.todolistversion2.roomDatabaseComponents.Tod
 //todo: try separate alarming and timer by set alarm time "null", separate acts from layouts
 public class MainActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 5;
+    private static final int SIGN_UP = 4;
+    private static final int SIGN_IN = 3;
+    private static final String ALARMS = "alarms";
+    private static final String TIMERS = "timers";
+    private static final int NEW_NOTE = 1;
+    private static final int UPDATE_NOTE = 2;
     private TodoModelView modelView;
     private TodoNoteAdapter myAdapter;
     private TodoNoteAdapter myAdapter2;
@@ -81,10 +87,10 @@ public class MainActivity extends AppCompatActivity {
         });
         modelView.select().observe(this, items -> {
         });
-        modelView.select("alarms").observe(this, items -> {
+        modelView.select(ALARMS).observe(this, items -> {
             myAdapter.submitList(sortByCreateTime(items));
         });
-        modelView.select("timers").observe(this, items -> {
+        modelView.select(TIMERS).observe(this, items -> {
             myAdapter2.submitList(sortByCreateTime(items));
         });
         switchUiToAlarm();
@@ -92,12 +98,12 @@ public class MainActivity extends AppCompatActivity {
         //add
         FloatingActionButton button = findViewById(R.id.float_action_button);
         button.setOnClickListener(view -> {
-            if (currentPage.equals("alarms")) {
+            if (currentPage.equals(ALARMS)) {
                 Intent intent = new Intent(MainActivity.this, InsertAlarmclockActivity.class);
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, NEW_NOTE);
             } else {
                 Intent intent = new Intent(MainActivity.this, InsertTimerActivity.class);
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, NEW_NOTE);
             }
         });
 
@@ -106,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         delButton.setOnClickListener(view -> {
             ConfirmDialogFragment confirmDialogFragment = new ConfirmDialogFragment();
             confirmDialogFragment.setModelView(modelView);
-            confirmDialogFragment.show(getSupportFragmentManager(), "tag");
+            confirmDialogFragment.show(getSupportFragmentManager(), "confirm del");
         });
 
         //switch
@@ -124,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         signInButton.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             intent.putExtra("type","signIn");
-            startActivityForResult(intent,3);
+            startActivityForResult(intent,SIGN_IN);
         });
 
         //sign up
@@ -132,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this,LoginActivity.class);
             intent.putExtra("type","signUp");
-            startActivityForResult(intent,4);
+            startActivityForResult(intent,SIGN_UP);
         });
 
         //google sign in
@@ -174,12 +180,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 3) {
+        if(requestCode == SIGN_IN) {
             if(myAuth.getCurrentUser()!=null){
                 String displayName = myAuth.getCurrentUser().getDisplayName();
                 Toast.makeText(getApplicationContext(), "Welcome back, "+ displayName, Toast.LENGTH_SHORT).show();
             }
-        }else if(requestCode == 4) {
+        }else if(requestCode == SIGN_UP) {
             if(myAuth.getCurrentUser()!=null){
                 String displayName = myAuth.getCurrentUser().getDisplayName();
                 if(displayName==null)displayName = "";
@@ -198,14 +204,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         else if (data != null) {
-            if (requestCode == 1) {
+            if (requestCode == NEW_NOTE) {
                 TodoNote t = new TodoNote(
                         data.getStringExtra("title"),
                         data.getStringExtra("detail"));
                 t.setAlarmTime(data.getStringExtra("alarm_time"));
                 t.setChecked(data.getStringExtra("checked"));
                 modelView.insert(t);
-            } else if(requestCode == 2) {
+            } else if(requestCode == UPDATE_NOTE) {
                 TodoNote t = new TodoNote(
                         data.getIntExtra("id", 0),
                         data.getStringExtra("title"),
@@ -235,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
         //listener recover
         Button toTimersButton = findViewById(R.id.to_timers);
         Button toAlarmsButton = findViewById(R.id.to_alarm_clocks);
-        if (currentPage.equals("timers")) {
+        if (currentPage.equals(TIMERS)) {
             switchUiToTimer();
         } else {
             switchUiToAlarm();
@@ -312,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
     private void switchUiToTimer() {
         Button toTimersButton = findViewById(R.id.to_timers);
         Button toAlarmsButton = findViewById(R.id.to_alarm_clocks);
-        currentPage = "timers";
+        currentPage = TIMERS;
         toTimersButton.setBackgroundColor(Color.GRAY);
         toAlarmsButton.setBackgroundColor(Color.WHITE);
         viewInMain.setVisibility(View.INVISIBLE);
@@ -322,7 +328,7 @@ public class MainActivity extends AppCompatActivity {
     private void switchUiToAlarm() {
         Button toTimersButton = findViewById(R.id.to_timers);
         Button toAlarmsButton = findViewById(R.id.to_alarm_clocks);
-        currentPage = "alarms";
+        currentPage = ALARMS;
         toTimersButton.setBackgroundColor(Color.WHITE);
         toAlarmsButton.setBackgroundColor(Color.GRAY);
         viewInMain2.setVisibility(View.INVISIBLE);
