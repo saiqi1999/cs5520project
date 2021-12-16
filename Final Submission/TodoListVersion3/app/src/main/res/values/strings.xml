@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Todo List Version 3</string>
+    <string name="app_name">Personal Cloud Note</string>
     <string name="add">add</string>
     <string name="del">del</string>
     <string name="timer_second">TIMER::SECOND</string>
