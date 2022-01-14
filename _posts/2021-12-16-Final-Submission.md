@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Final project submittion, You should really look at this post
+title: Final project submission, Application Manual & Release
 ---
 
 Source code on [https://github.com/saiqi1999/cs5520project/tree/main/Final%20Submission](https://github.com/saiqi1999/cs5520project/tree/main/Final%20Submission)
