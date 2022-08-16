@@ -7,6 +7,8 @@ This app allows user add notes and save them on cloud, it will automatically syn
 Once you open the app, there are 2 buttons in the bottom of screen, user could choose to look at his alarms or timers by clicking it.\
 There are also five round buttons on top of screen, from left: Google OAuth(not active since app not published), new user, delete all(with confirm pop up), login, new alarm/timer(depend on your current page)
 
+https://raw.githubusercontent.com/saiqi1999/cs5520project/gh-pages/images/HW5/helpGif.gif
+
 https://raw.githubusercontent.com/saiqi1999/cs5520project/gh-pages/images/481660544174_.pic.jpg
 
 Click into one of the message title to edit it, if user wants to change their on/off, they could just do it on "main" page.
