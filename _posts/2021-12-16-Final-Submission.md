@@ -4,13 +4,10 @@ title: Final project submission, Application Manual & Release
 ---
 https://raw.githubusercontent.com/saiqi1999/cs5520project/gh-pages/images/HW5/helpGif.gif
 
-Source code on [https://github.com/saiqi1999/cs5520project/tree/main/Final%20Submission](https://github.com/saiqi1999/cs5520project/tree/main/Final%20Submission)
+Source code on [https://github.com/saiqi1999/CloudNote/tree/main/TodoListVersion3](https://github.com/saiqi1999/CloudNote/tree/main/TodoListVersion3)
 
 Here's a powerpoint as a Doc
 [Saiqi_FinalProjectPresentation_cs5520_fall2021.pptx](https://github.com/saiqi1999/cs5520project/files/7725912/SaiqiHe_FinalProjectPresentation_cs5520_fall2021.pptx)
-
-Download the apk here 
-[app-release.apk.zip](https://github.com/saiqi1999/cs5520project/files/7726045/app-release.apk.zip)
 
 # 1. Implement user interface design
    I made the UI better, and add a switch pages for alarm clocks and timers\
